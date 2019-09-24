@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Script variables
+FILEBEAT_VERSION="5b046c5"
+GOLANG_VERSION="https://dl.google.com/go/go1.13.linux-armv6l.tar.gz"
+log=pibeat_install_log.txt
+
+# Dependencies
+echo "---------------------------------------------------------------"
+echo " System Update... "
+sudo DEBIAN_FRONTEND=noninteractive apt-get -yq update > /dev/null
+sudo DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade > /dev/null
+echo " System Update Complete"
+
+# Install python-pip git
+sudo apt-get install python-pip git -y >$log
+
+# Install virtualenv
+sudo pip install virtualenv 
+
+# Install / reinstall make
+sudo apt-get install make --reinstall >>$log
+sudo apt-get update -y
+
+# Create Directories
+cd $HOME
+sudo mkdir go go/src go/src/github.com go/src/github.com/elastic
+
+# Set Starting Directory
+cd /home/pi
+
+# Download & Install Go
+wget $GOLANG_VERSION
+sudo tar -C /usr/local -xzf go1.13.linux-armv6l.tar.gz
+rm go1.*
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+
+# Download and build filebeat
+cd $HOME/go/src/github.com/elastic
+git clone https://github.com/elastic/beats.git
+cd beats/
+git checkout $FILEBEAT_VERSION
+cd filebeat
+sudo make
+sudo make update
+# ./filebeat -e -v
+sudo mkdir /usr/share/filebeat /usr/share/filebeat/bin /etc/filebeat /var/log/filebeat /var/lib/filebeat
+cd $HOME/go/src/github.com/elastic/beats/filebeat
+sudo mv filebeat /usr/share/filebeat/bin
+sudo mv module /usr/share/filebeat/
+sudo mv modules.d/ /etc/filebeat/
+sudo cp filebeat.yml /etc/filebeat/
+sudo chmod 750 /var/log/filebeat
+sudo chmod 750 /etc/filebeat/
+sudo chown -R root:root /usr/share/filebeat/*
+
+
+
+
+
+
+
+
+
