@@ -25,11 +25,6 @@ Python 3.7.3
 ```git --version ```
 git version 2.20.1
 
-# TODO: This is still a work in progress.
-
-- Still have edits to script to ouput to log
-- Script is currently not working.  Getting error at make step of the script.  Potentially a path issue.
-
 # Running pibeat
 
 1. Copy pibeat to the Raspberry Pi (/home/pi)
@@ -77,3 +72,8 @@ Note: Be sure to enable the module(s) you are using with filebeat.
 Modules [Documentation](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html)
 
 example: ```filebeat modules enable logstash```
+
+# TODO: This is still a work in progress.
+
+- Script is currently not working.  
+  - Getting error at ```sudo make```, line 45 of the script.  Potentially a path issue.
