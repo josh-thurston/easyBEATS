@@ -3,7 +3,7 @@
 # Script variables
 FILEBEAT_VERSION="5b046c5"
 GOLANG_VERSION="https://dl.google.com/go/go1.13.linux-armv6l.tar.gz"
-log=pibeat_install_log.txt
+log=/home/pi/pibeat_log.txt
 
 # Dependencies
 echo "---------------------------------------------------------------"
@@ -16,34 +16,34 @@ echo " System Update Complete"
 sudo apt-get install python-pip git -y >$log
 
 # Install virtualenv
-sudo pip install virtualenv 
+sudo pip install virtualenv >>$log
 
 # Install / reinstall make
 sudo apt-get install make --reinstall >>$log
-sudo apt-get update -y
+sudo apt-get update -y >>$log
 
 # Create Directories
 cd $HOME
-sudo mkdir go go/src go/src/github.com go/src/github.com/elastic
+sudo mkdir go go/src go/src/github.com go/src/github.com/elastic >>$log
 
 # Set Starting Directory
 cd /home/pi
 
 # Download & Install Go
-wget $GOLANG_VERSION
-sudo tar -C /usr/local -xzf go1.13.linux-armv6l.tar.gz
+wget $GOLANG_VERSION >>$log
+sudo tar -C /usr/local -xzf go1.13.linux-armv6l.tar.gz >>$log
 rm go1.*
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin >>$log
+export GOPATH=$HOME/go >>$log
 
 # Download and build filebeat
 cd $HOME/go/src/github.com/elastic
-git clone https://github.com/elastic/beats.git
+git clone https://github.com/elastic/beats.git >>$log
 cd beats/
-git checkout $FILEBEAT_VERSION
+git checkout $FILEBEAT_VERSION >>$log
 cd filebeat
-sudo make
-sudo make update
+sudo make >>$log
+sudo make update >>$log
 # ./filebeat -e -v
 sudo mkdir /usr/share/filebeat /usr/share/filebeat/bin /etc/filebeat /var/log/filebeat /var/lib/filebeat
 cd $HOME/go/src/github.com/elastic/beats/filebeat
