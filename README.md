@@ -10,7 +10,7 @@ the following information, you may need to make some modifications.
 
 ```cat /etc/issue```
 OS - Raspbian GNU/Linux 10
-OS = Raspbian GNU/Linux 10 \n 1
+OS - Raspbian GNU/Linux 10 \n 1
 
 ```cat /etc/debian_version```
 10.0
@@ -29,51 +29,14 @@ git version 2.20.1
 
 1. Copy pibeat to the Raspberry Pi (/home/pi)
 2. Make pibeat executable
-3. ```sudo chmod +x pibeat```
-4. Run pibeat
-5. sudo ./pibeat
+```chmod +x pibeat```
+3. Run pibeat
+``./pibeat``
 
+After pibeat finishes, you will need to open up and edit some files
 # Configure Filebeat
-1. Edit filebeat.yml.  Must be root 
-2. ```sudo su```
-3. ```sudo nano /etc/filebeat/filbeat.yml```
-4. Configure the filebeat.yml to collect logs as needed for your logging preferences.
-5. Enable modules needed for your preferences.
-Filebeat [Documentation]()
-
-# Setup Filebeat Service
-1. ```sudo nano /lib/systemd/system/filebeat.service```
-2. Enter the information exactly as it appears
-```
-[Unit]
-Description=filebeat
-Documentation=https://www.elastic.co/guide/en/beats/filebeat/current/index.html
-Wants=userwork-online.target
-After=network-online.target
-
-[Service]
-ExecStart=/usr/share/filebeat/bin/filebeat -c /etc/filebeat/filebeat.yml -path.home /usr/share/filebeat -path.config /etc/filebeat -path.data /var/lib/filebeat -path.logs /var/log/filebeat
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-3. Save the file and close
-4. Enable the filebeat service
-5. ```sudo systemctl enable filebeat.service```
-6. This will create a symlink.  After step five you should see a return message
-```Created symlink /etc/systemd/system/multi-user.target.wants/filebeat.service → /lib/systemd/system/filebeat.service.```
-7. Start the filebeat service
-8. ```sudo service filebeat start```
-9. Check filebeat service status
-10. ```sudo service filebeat status```
-
-Note: Be sure to enable the module(s) you are using with filebeat.
-Modules [Documentation](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html)
-
-example: ```filebeat modules enable logstash```
-
-# TODO: This is still a work in progress.
-
-- Script is currently not working.  
-  - Getting error at ```sudo make```, line 45 of the script.  Potentially a path issue.
+1. Edit filebeat.yml. 
+```nano /etc/filebeat/filbeat.yml```
+2. Configure filebeat.yml to collect logs as needed for your logging preferences.
+3. Enable modules needed for your preferences.
+Reference Filebeat [Documentation](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html)
