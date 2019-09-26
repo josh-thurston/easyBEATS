@@ -1,65 +1,185 @@
 #!/bin/bash
+# Special thanks to Elasticlce.net ref: https://www.elasticice.net/?p=92
+# Special thanks to davemoore ref: https://discuss.elastic.co/t/file-packet-metric-beat-on-raspi-centos-7-armhf-armv7l/184048
 
 # Script variables
 FILEBEAT_VERSION="5b046c5"
-GOLANG_VERSION="https://dl.google.com/go/go1.13.linux-armv6l.tar.gz"
 log=/home/pi/pibeat_log.txt
 
-# Dependencies
 echo "---------------------------------------------------------------"
-echo " System Update... "
+echo "System Update... " | tee -a $log 
+date >>$log
+echo ""
+echo ""
 sudo DEBIAN_FRONTEND=noninteractive apt-get -yq update > /dev/null
 sudo DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade > /dev/null
-echo " System Update Complete"
+echo " -> System Update Complete" | tee -a $log 
+echo ""
+echo ""
+# Prepare Go Workspace, aka GOPATH.
+# Note: $HOME should be set to root directory of user account logged in.  
+# Example: $HOME should be /home/pi if logged as default pi user account on Raspberry Pi.
+# It is important to run commands as user only. Avoid using sudo or su
+echo "Creating Go Workspace directories..." | tee -a $log
+if [ -d $HOME/go ];
+then
+   echo " -> $HOME/go already exists" | tee -a $log
+else
+   echo " -> making $HOME/go"  | tee -a $log
+   mkdir $HOME/go;  
+   mkdir $HOME/go/bin;
+   mkdir $HOME/go/pkg;
+   mkdir $HOME/go/src;
+   mkdir $HOME/go/src/github.com;
+   mkdir $HOME/go/src/github.com/elastic;
+   mkdir $HOME/beats;
+fi
+echo " -> Directories created" | tee -a $log
+echo ""
+echo ""
+echo "Checking for python-pip git" | tee -a $log
+if [ $(dpkg-query -W -f='${Status}' python-pip git 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  echo " -> Installing python-pip git..." | tee -a $log
+  apt-get install python-pip git -y;
+elif [ $(dpkg-query -W -f='${Status}' python-pip git 2>/dev/null | grep -c "ok installed") -eq 1 ];
+then  
+  echo " -> python-pip git is installed" | tee -a $log
+fi 
+echo ""
+echo ""
+echo "Checking for virtualenv..." | tee -a $log
+if python -c 'import pkgutil; exit(not pkgutil.find_loader("virtualenv"))';
+then
+  echo " -> virtualenv found" | tee -a $log
+else
+  echo " -> virtualenv not found" | tee -a $log
+  echo " -> Installing virtualenv" | tee -a $log
+  pip install virtualenv 2>&1 | tee -a $log
+fi
+echo ""
+echo ""
+echo "Checking for Make" | tee -a $log
+if [ $(dpkg-query -W -f='${Status}' make 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  echo " -> Installing make..." | tee -a $log
+  apt-get install make -y;
+elif [ $(dpkg-query -W -f='${Status}' make 2>/dev/null | grep -c "ok installed") -eq 1 ];
+then  
+  echo " -> Make is installed" | tee -a $log
+fi 
+echo ""
+echo ""
+echo "Checking for GCC" | tee -a $log
+if [ $(dpkg-query -W -f='${Status}' gcc 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  echo " -> Installing GCC..." | tee -a $log
+  apt-get install python-pip git -y;
+elif [ $(dpkg-query -W -f='${Status}' gcc 2>/dev/null | grep -c "ok installed") -eq 1 ];
+then  
+  echo " -> GCC is installed" | tee -a $log
+fi 
+echo ""
+echo ""
+echo "Checking for Go" | tee -a $log
+if [ $(dpkg-query -W -f='${Status}' golang-go 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  echo " -> Installing Go..." | tee -a $log
+  sudo apt-get install golang-go -y;
+  go version  | tee -a $log
+  echo "GOPATH set to:" | tee -a $log
+  go env GOPATH | tee -a $log
+  echo "GOROOT set to:" | tee -a $log
+  go env GOROOT | tee -a $log
+  echo " -> Go is installed"
+elif [ $(dpkg-query -W -f='${Status}' golang-go 2>/dev/null | grep -c "ok installed") -eq 1 ];
+then  
+  echo " -> Go is installed" | tee -a $log
+fi
+echo ""
+echo ""
+#----------------------------------------------------------------
+# Note: This section seems to be problematic. I left $GOPATH and $GOROOT as defaults and did not to use them at all. 
+#       Customize for your specific variables below. Be sure to edit lines and substitute $HOME/go with $GOPATH.
 
-# Install python-pip git
-sudo apt-get install python-pip git -y >$log
+# echo "Export new environment variables" | tee -a $log
+# export GOPATH=$HOME/go
+# echo "Persist the new environment variables" | tee -a $log
+# echo -e "export GOPATH=$HOME/go/src" | tee -a ~/.profile
+#----------------------------------------------------------------
 
-# Install virtualenv
-sudo pip install virtualenv >>$log
-
-# Install / reinstall make
-sudo apt-get install make --reinstall >>$log
-sudo apt-get update -y >>$log
-
-# Create Directories
-cd $HOME
-sudo mkdir go go/src go/src/github.com go/src/github.com/elastic >>$log
-
-# Set Starting Directory
-cd /home/pi
-
-# Download & Install Go
-wget $GOLANG_VERSION >>$log
-sudo tar -C /usr/local -xzf go1.13.linux-armv6l.tar.gz >>$log
-rm go1.*
-export PATH=$PATH:/usr/local/go/bin >>$log
-export GOPATH=$HOME/go >>$log
-
-# Download and build filebeat
+echo "Downloading beats files from Elastic repo on github..." | tee -a $log
 cd $HOME/go/src/github.com/elastic
-git clone https://github.com/elastic/beats.git >>$log
-cd beats/
-git checkout $FILEBEAT_VERSION >>$log
-cd filebeat
-sudo make >>$log
-sudo make update >>$log
-# ./filebeat -e -v
-sudo mkdir /usr/share/filebeat /usr/share/filebeat/bin /etc/filebeat /var/log/filebeat /var/lib/filebeat
+# git clone https://github.com/elastic/beats.git
+go get github.com/elastic/beats 
+cd beats
+echo ""
+echo ""
+echo "Checking out Filebeat" | tee -a $log
+git fetch
+git checkout $FILEBEAT_VERSION
+echo ""
+echo ""
+echo "Temporarily enabling swap space." | tee -a $log
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo -e "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
+sudo swapon --show
+echo ""
+echo ""
 cd $HOME/go/src/github.com/elastic/beats/filebeat
-sudo mv filebeat /usr/share/filebeat/bin
-sudo mv module /usr/share/filebeat/
-sudo mv modules.d/ /etc/filebeat/
-sudo cp filebeat.yml /etc/filebeat/
-sudo chmod 750 /var/log/filebeat
-sudo chmod 750 /etc/filebeat/
-sudo chown -R root:root /usr/share/filebeat/*
-
-
-
-
-
-
-
-
-
+# Ref for GoARM & GOARCH https://github.com/golang/go/wiki/GoArm
+# Ref for lscpu https://www.binarytides.com/linux-cpu-information/
+if [ $(lscpu | grep -c "armv7") -eq 1 ];
+then
+  echo "System Architecture is ARMv7, Setting GOARCH=arm" | tee -a $log
+  echo "Creating Filebeat..."
+  GOOS=linux GOARCH=arm go get;
+  make;
+  echo "Filebeat created"
+elif [ $(lscpu | grep -c "armv8") -eq 1 ];
+then
+  echo "System Architecture is ARMv8, Set GOARCH=arm64" | tee -a $log 
+  echo "Creating Filebeat"
+  GOOS=linux GOARCH=arm64 go get;
+  make;
+  echo "Filebeat created" 
+fi
+echo ""
+echo ""
+# TODO: Create an section to ask user what beats they want to create (metricbeat, auditbeat, filebeat, heartbet)
+#      The section will capture the archv and the generator will compile based on user input (y/n) for each beat option.
+# cd $HOME/go/src/github.com/elastic/beats/metricbeat
+# GOOS=linux GOARCH=arm make
+# cd $HOME/GO/src/github.com/elastic/beats/auditbeat
+# GOOS=linux GOARCH=arm make
+# cd $HOME/GO/src/github.com/elastic/beats/filebeat
+# GOOS=linux GOARCH=arm make
+# cd $HOME/GO/src/github.com/elastic/beats/heartbeat
+# GOOS=linux GOARCH=arm make
+sudo swapoff -v /swapfile
+echo -e "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
+sudo rm /swapfile
+echo "Temporarily swap space disabled." | tee -a $log
+echo ""
+echo ""
+echo "Moving Filebeats into /home/beats/filebeat..." | tee -a $log
+cp -R $HOME/go/src/github.com/elastic/beats/filebeat ~/beats/filebeat 2>&1 | tee -a $log
+cp $HOME/go/bin/filebeat ~/beats/filebeat 2>&1 | tee -a $log
+echo ""
+echo ""
+echo "Changing permissions..." | tee -a $log
+chmod go-w $HOME/beats/filebeat/filebeat.yml
+chmod go-w -R $HOME/beats/filebeat/modules.d
+echo "pibeat finished" | tee -a $log
+echo ""
+echo "---------------------------------------------------------------"
+echo ""
+echo "Next: "
+echo "      Filebeat is located in /home/pi/beats/filebeat"
+echo "      - Configure Filebeat.yml"
+echo "      - Setup Index Templates"
+echo "      - Run Beats"
+echo "      - Start Beats on boot"
