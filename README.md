@@ -4,17 +4,18 @@ At the time of creating this script, Elastic has not released an ARM version for
 the Beats data shippers for arm architecture.  
 
 pibeat will create:
-[Auditbeat](https://www.elastic.co/products/beats/auditbeat)
-[Filebeat](https://www.elastic.co/products/beats/filebeat)
-[Heartbeat](https://www.elastic.co/products/beats/heartbeat)
-[Metricbeat](https://www.elastic.co/products/beats/metricbeat)
+
+- [Auditbeat](https://www.elastic.co/products/beats/auditbeat)
+- [Filebeat](https://www.elastic.co/products/beats/filebeat)
+- [Heartbeat](https://www.elastic.co/products/beats/heartbeat)
+- [Metricbeat](https://www.elastic.co/products/beats/metricbeat)
 
 Testing was performed on Raspberry Pi 3.+ and Raspberry Pi 4.  
 
 System information for both is listed below with the commands to lookup the info on your system. If your system does not match
 the following information, you may need to make some modifications.
 
-**System Info*
+**System Info**
 
 ```cat /etc/issue```
 OS - Raspbian GNU/Linux 10
