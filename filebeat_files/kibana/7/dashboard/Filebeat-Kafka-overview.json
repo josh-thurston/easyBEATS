@@ -1,0 +1,101 @@
+{
+    "objects": [
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": []}"
+                }, 
+                "savedSearchId": "Kafka stacktraces-ecs", 
+                "title": "Number of stracktraces by class [Filebeat Kafka] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"histogram\", \"params\": {\"seriesParams\": [{\"showCircles\": true, \"show\": \"true\", \"data\": {\"id\": \"1\", \"label\": \"Count\"}, \"mode\": \"stacked\", \"drawLinesBetweenPoints\": true, \"valueAxis\": \"ValueAxis-1\", \"type\": \"histogram\"}], \"type\": \"histogram\", \"categoryAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\"}, \"show\": true, \"title\": {\"text\": \"@timestamp per 30 minutes\"}, \"labels\": {\"truncate\": 100, \"show\": true}, \"position\": \"bottom\", \"type\": \"category\", \"id\": \"CategoryAxis-1\"}], \"legendPosition\": \"right\", \"addTimeMarker\": false, \"addLegend\": true, \"grid\": {\"style\": {\"color\": \"#eee\"}, \"categoryLines\": false}, \"times\": [], \"addTooltip\": true, \"valueAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\", \"mode\": \"normal\"}, \"name\": \"LeftAxis-1\", \"show\": true, \"title\": {\"text\": \"Count\"}, \"labels\": {\"filter\": false, \"rotate\": 0, \"truncate\": 100, \"show\": true}, \"position\": \"left\", \"type\": \"value\", \"id\": \"ValueAxis-1\"}]}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"customInterval\": \"2h\", \"field\": \"@timestamp\", \"interval\": \"auto\", \"min_doc_count\": 1, \"extended_bounds\": {}}, \"type\": \"date_histogram\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"kafka.log.trace.class\", \"order\": \"desc\", \"size\": 10}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"group\"}], \"title\": \"Number of Kafka stracktraces by class [Filebeat Kafka] ECS\"}"
+            }, 
+            "id": "number-of-kafka-stracktraces-by-class-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "columns": [
+                    "kafka.log.class", 
+                    "kafka.log.trace.class", 
+                    "kafka.log.trace.full"
+                ], 
+                "description": "", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"filebeat-*\", \"version\": true, \"highlightAll\": true, \"query\": {\"query\": \"kafka.log.trace.class:*\", \"language\": \"kuery\"}}"
+                }, 
+                "sort": [
+                    "@timestamp", 
+                    "desc"
+                ], 
+                "title": "Stacktraces [Filebeat Kafka] ECS", 
+                "version": 1
+            }, 
+            "id": "Kafka stacktraces-ecs", 
+            "type": "search", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "columns": [
+                    "log.level", 
+                    "kafka.log.component", 
+                    "message"
+                ], 
+                "description": "", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [{\"query\": {\"match\": {\"event.module\": {\"query\": \"kafka\", \"type\": \"phrase\"}}}, \"meta\": {\"index\": \"filebeat-*\", \"value\": \"kafka\", \"disabled\": false, \"alias\": null, \"params\": {\"query\": \"kafka\", \"type\": \"phrase\"}, \"key\": \"event.module\", \"negate\": false, \"type\": \"phrase\"}, \"$state\": {\"store\": \"appState\"}}, {\"query\": {\"match\": {\"fileset.name\": {\"query\": \"log\", \"type\": \"phrase\"}}}, \"meta\": {\"index\": \"filebeat-*\", \"value\": \"log\", \"disabled\": false, \"alias\": null, \"params\": {\"query\": \"log\", \"type\": \"phrase\"}, \"key\": \"fileset.name\", \"negate\": false, \"type\": \"phrase\"}, \"$state\": {\"store\": \"appState\"}}], \"index\": \"filebeat-*\", \"version\": true, \"highlightAll\": true, \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "sort": [
+                    "@timestamp", 
+                    "desc"
+                ], 
+                "title": "All logs [Filebeat Kafka] ECS", 
+                "version": 1
+            }, 
+            "id": "All Kafka logs-ecs", 
+            "type": "search", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": []}"
+                }, 
+                "savedSearchId": "All Kafka logs-ecs", 
+                "title": "Log levels over time [Filebeat Kafka] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"histogram\", \"params\": {\"seriesParams\": [{\"showCircles\": true, \"show\": \"true\", \"data\": {\"id\": \"1\", \"label\": \"Count\"}, \"mode\": \"stacked\", \"drawLinesBetweenPoints\": true, \"valueAxis\": \"ValueAxis-1\", \"type\": \"histogram\"}], \"type\": \"histogram\", \"categoryAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\"}, \"show\": true, \"title\": {\"text\": \"@timestamp per day\"}, \"labels\": {\"truncate\": 100, \"show\": true}, \"position\": \"bottom\", \"type\": \"category\", \"id\": \"CategoryAxis-1\"}], \"legendPosition\": \"right\", \"addTimeMarker\": false, \"addLegend\": true, \"grid\": {\"style\": {\"color\": \"#eee\"}, \"categoryLines\": false}, \"times\": [], \"addTooltip\": true, \"valueAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\", \"mode\": \"normal\"}, \"name\": \"LeftAxis-1\", \"show\": true, \"title\": {\"text\": \"Count\"}, \"labels\": {\"filter\": false, \"rotate\": 0, \"truncate\": 100, \"show\": true}, \"position\": \"left\", \"type\": \"value\", \"id\": \"ValueAxis-1\"}]}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"customInterval\": \"2h\", \"field\": \"@timestamp\", \"interval\": \"auto\", \"min_doc_count\": 1, \"extended_bounds\": {}}, \"type\": \"date_histogram\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"log.level\", \"customLabel\": \"Log Level\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"group\"}], \"title\": \"Log levels over time [Filebeat Kafka] ECS\"}"
+            }, 
+            "id": "3f7c33c0-87ee-11e7-ad9c-db80de0bf8d3-ecs", 
+            "type": "visualization", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "Filebeat Kafka module dashboard", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"version\": true, \"highlightAll\": true}"
+                }, 
+                "optionsJSON": "{\"darkTheme\": false}", 
+                "panelsJSON": "[{\"type\": \"visualization\", \"id\": \"number-of-kafka-stracktraces-by-class-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 1, \"col\": 1, \"row\": 1}, {\"sort\": [\"@timestamp\", \"desc\"], \"type\": \"search\", \"id\": \"Kafka stacktraces-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 2, \"col\": 7, \"columns\": [\"kafka.log.class\", \"kafka.log.trace.class\", \"kafka.log.trace.full\"], \"row\": 1}, {\"sort\": [\"@timestamp\", \"desc\"], \"type\": \"search\", \"id\": \"All Kafka logs-ecs\", \"size_x\": 12, \"size_y\": 5, \"panelIndex\": 3, \"col\": 1, \"columns\": [\"log.level\", \"kafka.log.component\", \"message\"], \"row\": 6}, {\"type\": \"visualization\", \"id\": \"3f7c33c0-87ee-11e7-ad9c-db80de0bf8d3-ecs\", \"size_x\": 12, \"size_y\": 2, \"panelIndex\": 4, \"col\": 1, \"row\": 4}]", 
+                "timeRestore": false, 
+                "title": "[Filebeat Kafka] Overview ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1
+            }, 
+            "id": "943caca0-87ee-11e7-ad9c-db80de0bf8d3-ecs", 
+            "type": "dashboard", 
+            "version": 1
+        }
+    ], 
+    "version": "6.0.0-beta1-SNAPSHOT"
+}

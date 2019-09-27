@@ -1,0 +1,146 @@
+{
+    "objects": [
+        {
+            "attributes": {
+                "description": "", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "optionsJSON": "{\"useMargins\": true, \"hidePanelTitles\": false}", 
+                "panelsJSON": "[{\"gridData\": {\"i\": \"1\", \"h\": 14, \"y\": 7, \"w\": 41, \"x\": 4}, \"panelRefName\": \"panel_0\", \"version\": \"8.0.0-SNAPSHOT\", \"panelIndex\": \"1\", \"embeddableConfig\": {}}, {\"gridData\": {\"i\": \"2\", \"h\": 7, \"y\": 0, \"w\": 20, \"x\": 4}, \"panelRefName\": \"panel_1\", \"version\": \"8.0.0-SNAPSHOT\", \"panelIndex\": \"2\", \"embeddableConfig\": {}}, {\"gridData\": {\"i\": \"3\", \"h\": 7, \"y\": 0, \"w\": 21, \"x\": 24}, \"panelRefName\": \"panel_2\", \"version\": \"8.0.0-SNAPSHOT\", \"panelIndex\": \"3\", \"embeddableConfig\": {}}, {\"gridData\": {\"i\": \"4\", \"h\": 6, \"y\": 21, \"w\": 41, \"x\": 4}, \"panelRefName\": \"panel_3\", \"version\": \"8.0.0-SNAPSHOT\", \"panelIndex\": \"4\", \"embeddableConfig\": {}}]", 
+                "timeRestore": false, 
+                "title": "Coredns Overview Dashboard", 
+                "version": 1
+            }, 
+            "id": "53aa1f70-443e-11e9-8548-ab7fbe04f038", 
+            "migrationVersion": {
+                "dashboard": "7.0.0"
+            }, 
+            "references": [
+                {
+                    "id": "3ad75810-4429-11e9-8548-ab7fbe04f038", 
+                    "name": "panel_0", 
+                    "type": "visualization"
+                }, 
+                {
+                    "id": "9dc640e0-4432-11e9-8548-ab7fbe04f038", 
+                    "name": "panel_1", 
+                    "type": "visualization"
+                }, 
+                {
+                    "id": "75743f70-443c-11e9-8548-ab7fbe04f038", 
+                    "name": "panel_2", 
+                    "type": "visualization"
+                }, 
+                {
+                    "id": "cfde7fb0-443d-11e9-8548-ab7fbe04f038", 
+                    "name": "panel_3", 
+                    "type": "visualization"
+                }
+            ], 
+            "type": "dashboard", 
+            "updated_at": "2019-03-11T20:43:54.420Z", 
+            "version": "WzE0ODgsM10="
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+                }, 
+                "title": "Top Domains [Coredns]", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"tagcloud\", \"params\": {\"minFontSize\": 18, \"orientation\": \"single\", \"maxFontSize\": 72, \"metric\": {\"params\": {}, \"aggType\": \"count\", \"accessor\": 0, \"format\": {\"id\": \"number\"}}, \"showLabel\": true, \"scale\": \"linear\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"coredns.query.name\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 10}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Top Domains [Coredns]\"}"
+            }, 
+            "id": "3ad75810-4429-11e9-8548-ab7fbe04f038", 
+            "migrationVersion": {
+                "visualization": "7.0.0"
+            }, 
+            "references": [
+                {
+                    "id": "8d890080-413c-11e9-8548-ab7fbe04f038", 
+                    "name": "kibanaSavedObjectMeta.searchSourceJSON.index", 
+                    "type": "index-pattern"
+                }
+            ], 
+            "type": "visualization", 
+            "updated_at": "2019-03-11T18:12:28.303Z", 
+            "version": "WzE0ODMsM10="
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+                }, 
+                "title": "Total DNS Queries [Coredns]", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"metric\", \"params\": {\"type\": \"metric\", \"metric\": {\"style\": {\"bgFill\": \"#000\", \"bgColor\": false, \"fontSize\": 60, \"subText\": \"\", \"labelColor\": false}, \"colorSchema\": \"Green to Red\", \"invertColors\": false, \"labels\": {\"show\": true}, \"useRanges\": false, \"percentageMode\": false, \"colorsRange\": [{\"to\": 10000, \"from\": 0}], \"metricColorMode\": \"None\"}, \"addTooltip\": true, \"addLegend\": false}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}], \"title\": \"Total DNS Queries [Coredns]\"}"
+            }, 
+            "id": "9dc640e0-4432-11e9-8548-ab7fbe04f038", 
+            "migrationVersion": {
+                "visualization": "7.0.0"
+            }, 
+            "references": [
+                {
+                    "id": "8d890080-413c-11e9-8548-ab7fbe04f038", 
+                    "name": "kibanaSavedObjectMeta.searchSourceJSON.index", 
+                    "type": "index-pattern"
+                }
+            ], 
+            "type": "visualization", 
+            "updated_at": "2019-03-11T19:19:39.757Z", 
+            "version": "WzE0ODQsM10="
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+                }, 
+                "title": "Unique Domains [Coredns]", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"metric\", \"params\": {\"type\": \"metric\", \"metric\": {\"metrics\": [{\"params\": {}, \"aggType\": \"cardinality\", \"accessor\": 0, \"format\": {\"id\": \"number\"}}], \"style\": {\"bgFill\": \"#000\", \"bgColor\": false, \"fontSize\": 60, \"subText\": \"\", \"labelColor\": false}, \"colorSchema\": \"Green to Red\", \"invertColors\": false, \"labels\": {\"show\": true}, \"bucket\": {\"params\": {}, \"aggType\": \"terms\", \"accessor\": 0, \"format\": {\"params\": {\"otherBucketLabel\": \"Other\", \"id\": \"string\", \"missingBucketLabel\": \"Missing\"}, \"id\": \"terms\"}}, \"useRanges\": false, \"percentageMode\": false, \"colorsRange\": [{\"to\": 10000, \"from\": 0}], \"metricColorMode\": \"None\"}, \"addTooltip\": true, \"addLegend\": false}, \"aggs\": [{\"params\": {\"field\": \"coredns.query.name\", \"customLabel\": \"Unique Domains\"}, \"type\": \"cardinality\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}], \"title\": \"Unique Domains [Coredns]\"}"
+            }, 
+            "id": "75743f70-443c-11e9-8548-ab7fbe04f038", 
+            "migrationVersion": {
+                "visualization": "7.0.0"
+            }, 
+            "references": [
+                {
+                    "id": "8d890080-413c-11e9-8548-ab7fbe04f038", 
+                    "name": "kibanaSavedObjectMeta.searchSourceJSON.index", 
+                    "type": "index-pattern"
+                }
+            ], 
+            "type": "visualization", 
+            "updated_at": "2019-03-12T01:26:19.218Z", 
+            "version": "WzE0OTMsM10="
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"tags:\\\"coredns\\\"\", \"language\": \"kuery\"}}"
+                }, 
+                "title": "Time Series Visualizer [Coredns]", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"metrics\", \"params\": {\"bar_color_rules\": [{\"id\": \"e1f6cda0-443e-11e9-94ba-69b05a5f82b8\"}], \"default_index_pattern\": \"filebeat-*\", \"background_color_rules\": [{\"id\": \"65ad37b0-443f-11e9-94ba-69b05a5f82b8\"}], \"index_pattern\": \"\", \"gauge_inner_width\": 10, \"series\": [{\"line_width\": 1, \"terms_field\": \"fileset.name\", \"metrics\": [{\"type\": \"count\", \"id\": \"61ca57f2-469d-11e7-af02-69e470af7417\"}], \"color\": \"#68BC00\", \"stacked\": \"none\", \"label\": \"CoreDNS Kubernetes\", \"filter\": \"fileset.name:kubernetes\", \"separate_axis\": 0, \"split_mode\": \"filter\", \"chart_type\": \"line\", \"point_size\": 1, \"axis_position\": \"right\", \"formatter\": \"number\", \"id\": \"61ca57f1-469d-11e7-af02-69e470af7417\", \"fill\": 0.5}, {\"line_width\": 1, \"metrics\": [{\"type\": \"count\", \"id\": \"3c8999f1-443f-11e9-94ba-69b05a5f82b8\"}], \"color\": \"#68BC00\", \"stacked\": \"none\", \"label\": \"CoreDNS Native\", \"filter\": \"fileset.name:log\", \"separate_axis\": 0, \"split_mode\": \"filter\", \"chart_type\": \"line\", \"point_size\": 1, \"axis_position\": \"right\", \"formatter\": \"number\", \"id\": \"3c8999f0-443f-11e9-94ba-69b05a5f82b8\", \"fill\": 0.5}], \"axis_formatter\": \"number\", \"interval\": \"auto\", \"id\": \"61ca57f0-469d-11e7-af02-69e470af7417\", \"gauge_color_rules\": [{\"id\": \"6996a6e0-443f-11e9-94ba-69b05a5f82b8\"}], \"time_field\": \"@timestamp\", \"show_legend\": 1, \"show_grid\": 1, \"gauge_style\": \"half\", \"axis_scale\": \"normal\", \"gauge_width\": 10, \"type\": \"timeseries\", \"axis_position\": \"left\"}, \"aggs\": [], \"title\": \"Time Series Visualizer [Coredns]\"}"
+            }, 
+            "id": "cfde7fb0-443d-11e9-8548-ab7fbe04f038", 
+            "migrationVersion": {
+                "visualization": "7.0.0"
+            }, 
+            "references": [], 
+            "type": "visualization", 
+            "updated_at": "2019-03-11T20:51:52.103Z", 
+            "version": "WzE0ODksM10="
+        }
+    ], 
+    "version": "8.0.0-SNAPSHOT"
+}

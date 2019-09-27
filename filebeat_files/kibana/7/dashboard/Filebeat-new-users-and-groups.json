@@ -1,0 +1,181 @@
+{
+    "objects": [
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": []}"
+                }, 
+                "savedSearchId": "8030c1b0-fa77-11e6-ae9b-81e5311e8cab-ecs", 
+                "title": "New users [Filebeat System] ECS", 
+                "uiStateJSON": "{\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}", 
+                "version": 1, 
+                "visState": "{\"type\": \"table\", \"listeners\": {}, \"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}, \"perPage\": 10, \"showPartialRows\": false, \"totalFunc\": \"sum\", \"showTotal\": false, \"showMeticsAtAllLevels\": false}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"host.hostname\", \"customLabel\": \"Host\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"bucket\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"user.name\", \"customLabel\": \"User\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"bucket\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"user.id\", \"customLabel\": \"UID\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"4\", \"schema\": \"bucket\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"group.id\", \"customLabel\": \"GID\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"5\", \"schema\": \"bucket\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"system.auth.useradd.home\", \"customLabel\": \"Home\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"6\", \"schema\": \"bucket\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"system.auth.useradd.shell\", \"customLabel\": \"Shell\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"7\", \"schema\": \"bucket\"}], \"title\": \"New users ECS\"}"
+            }, 
+            "id": "f398d2f0-fa77-11e6-ae9b-81e5311e8cab-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": []}"
+                }, 
+                "savedSearchId": "8030c1b0-fa77-11e6-ae9b-81e5311e8cab-ecs", 
+                "title": "New users over time [Filebeat System] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"histogram\", \"listeners\": {}, \"params\": {\"scale\": \"linear\", \"legendPosition\": \"bottom\", \"addTimeMarker\": false, \"addLegend\": true, \"mode\": \"stacked\", \"defaultYExtents\": false, \"setYExtents\": false, \"addTooltip\": true, \"times\": []}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"customInterval\": \"2h\", \"field\": \"@timestamp\", \"interval\": \"auto\", \"min_doc_count\": 1, \"extended_bounds\": {}}, \"type\": \"date_histogram\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"user.name\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"group\"}], \"title\": \"New users over time ECS\"}"
+            }, 
+            "id": "5dd15c00-fa78-11e6-ae9b-81e5311e8cab-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": []}"
+                }, 
+                "savedSearchId": "8030c1b0-fa77-11e6-ae9b-81e5311e8cab-ecs", 
+                "title": "New users by shell [Filebeat System] ECS", 
+                "uiStateJSON": "{\"vis\": {\"colors\": {\"/sbin/nologin\": \"#7EB26D\", \"/bin/false\": \"#508642\", \"/bin/bash\": \"#E24D42\"}, \"legendOpen\": true}}", 
+                "version": 1, 
+                "visState": "{\"type\": \"pie\", \"listeners\": {}, \"params\": {\"legendPosition\": \"right\", \"isDonut\": false, \"addTooltip\": true, \"addLegend\": true}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"system.auth.useradd.shell\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"user.name\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"segment\"}], \"title\": \"New users by shell ECS\"}"
+            }, 
+            "id": "e121b140-fa78-11e6-a1df-a78bd7504d38-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": []}"
+                }, 
+                "savedSearchId": "8030c1b0-fa77-11e6-ae9b-81e5311e8cab-ecs", 
+                "title": "New users by home directory [Filebeat System] ECS", 
+                "uiStateJSON": "{\"vis\": {\"colors\": {\"/nonexistent\": \"#629E51\", \"/sbin/nologin\": \"#7EB26D\", \"/bin/false\": \"#508642\", \"/bin/bash\": \"#E24D42\"}, \"legendOpen\": true}}", 
+                "version": 1, 
+                "visState": "{\"type\": \"pie\", \"listeners\": {}, \"params\": {\"legendPosition\": \"right\", \"isDonut\": false, \"addTooltip\": true, \"addLegend\": true}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"system.auth.useradd.home\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"user.name\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"segment\"}], \"title\": \"New users by home directory ECS\"}"
+            }, 
+            "id": "d56ee420-fa79-11e6-a1df-a78bd7504d38-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": []}"
+                }, 
+                "savedSearchId": "eb0039f0-fa7f-11e6-a1df-a78bd7504d38-ecs", 
+                "title": "New groups [Filebeat System] ECS", 
+                "uiStateJSON": "{\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}", 
+                "version": 1, 
+                "visState": "{\"type\": \"table\", \"listeners\": {}, \"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}, \"perPage\": 10, \"showPartialRows\": false, \"totalFunc\": \"sum\", \"showTotal\": false, \"showMeticsAtAllLevels\": false}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"group.name\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"bucket\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"group.id\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"bucket\"}], \"title\": \"New groups ECS\"}"
+            }, 
+            "id": "12667040-fa80-11e6-a1df-a78bd7504d38-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": []}"
+                }, 
+                "savedSearchId": "eb0039f0-fa7f-11e6-a1df-a78bd7504d38-ecs", 
+                "title": "New groups over time [Filebeat System] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"histogram\", \"listeners\": {}, \"params\": {\"scale\": \"linear\", \"legendPosition\": \"bottom\", \"addTimeMarker\": false, \"addLegend\": true, \"mode\": \"stacked\", \"defaultYExtents\": false, \"setYExtents\": false, \"addTooltip\": true, \"times\": []}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"customInterval\": \"2h\", \"field\": \"@timestamp\", \"interval\": \"auto\", \"min_doc_count\": 1, \"extended_bounds\": {}}, \"type\": \"date_histogram\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"group.name\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"group\"}], \"title\": \"New groups over time ECS\"}"
+            }, 
+            "id": "346bb290-fa80-11e6-a1df-a78bd7504d38-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{}"
+                }, 
+                "title": "Dashboards [Filebeat System] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"markdown\", \"params\": {\"markdown\": \"[Syslog](#/dashboard/Filebeat-syslog-dashboard-ecs) | [Sudo commands](#/dashboard/277876d0-fa2c-11e6-bbd3-29c986c96e5a-ecs) | [SSH logins](#/dashboard/5517a150-f9ce-11e6-8115-a7c18106d86a-ecs) | [New users and groups](#/dashboard/0d3f2380-fa78-11e6-ae9b-81e5311e8cab-ecs)\", \"fontSize\": 12}, \"aggs\": [], \"title\": \"Dashboards [Filebeat System] ECS\"}"
+            }, 
+            "id": "327417e0-8462-11e7-bab8-bd2f0fb42c54-ecs", 
+            "type": "visualization", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "columns": [
+                    "user.name", 
+                    "user.id", 
+                    "group.id", 
+                    "system.auth.useradd.home", 
+                    "system.auth.useradd.shell"
+                ], 
+                "description": "", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"filebeat-*\", \"highlightAll\": true, \"query\": {\"query\": \"system.auth.useradd:*\", \"language\": \"kuery\"}}"
+                }, 
+                "sort": [
+                    "@timestamp", 
+                    "desc"
+                ], 
+                "title": "useradd logs [Filebeat System] ECS", 
+                "version": 1
+            }, 
+            "id": "8030c1b0-fa77-11e6-ae9b-81e5311e8cab-ecs", 
+            "type": "search", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "columns": [
+                    "group.name", 
+                    "group.id"
+                ], 
+                "description": "", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"filebeat-*\", \"highlightAll\": true, \"query\": {\"query\": \"system.auth.groupadd:*\", \"language\": \"kuery\"}}"
+                }, 
+                "sort": [
+                    "@timestamp", 
+                    "desc"
+                ], 
+                "title": "groupadd logs [Filebeat System] ECS", 
+                "version": 1
+            }, 
+            "id": "eb0039f0-fa7f-11e6-a1df-a78bd7504d38-ecs", 
+            "type": "search", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "New users and groups dashboard for the System module in Filebeat", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"version\": true, \"highlightAll\": true}"
+                }, 
+                "optionsJSON": "{\"darkTheme\": false}", 
+                "panelsJSON": "[{\"type\": \"visualization\", \"id\": \"f398d2f0-fa77-11e6-ae9b-81e5311e8cab-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 1, \"col\": 1, \"row\": 2}, {\"type\": \"visualization\", \"id\": \"5dd15c00-fa78-11e6-ae9b-81e5311e8cab-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 2, \"col\": 7, \"row\": 2}, {\"type\": \"visualization\", \"id\": \"e121b140-fa78-11e6-a1df-a78bd7504d38-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 3, \"col\": 1, \"row\": 5}, {\"type\": \"visualization\", \"id\": \"d56ee420-fa79-11e6-a1df-a78bd7504d38-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 4, \"col\": 7, \"row\": 5}, {\"type\": \"visualization\", \"id\": \"12667040-fa80-11e6-a1df-a78bd7504d38-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 5, \"col\": 1, \"row\": 8}, {\"type\": \"visualization\", \"id\": \"346bb290-fa80-11e6-a1df-a78bd7504d38-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 6, \"col\": 7, \"row\": 8}, {\"type\": \"visualization\", \"id\": \"327417e0-8462-11e7-bab8-bd2f0fb42c54-ecs\", \"size_x\": 12, \"size_y\": 1, \"panelIndex\": 7, \"col\": 1, \"row\": 1}]", 
+                "timeRestore": false, 
+                "title": "[Filebeat System] New users and groups ECS", 
+                "uiStateJSON": "{\"P-5\": {\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}, \"P-1\": {\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}}", 
+                "version": 1
+            }, 
+            "id": "0d3f2380-fa78-11e6-ae9b-81e5311e8cab-ecs", 
+            "type": "dashboard", 
+            "version": 6
+        }
+    ], 
+    "version": "6.0.0-beta1-SNAPSHOT"
+}

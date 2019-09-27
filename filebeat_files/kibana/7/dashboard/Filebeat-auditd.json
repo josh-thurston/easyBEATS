@@ -1,0 +1,121 @@
+{
+    "objects": [
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"filebeat-*\", \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "title": "Event types breakdown [Filebeat Auditd] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"pie\", \"listeners\": {}, \"params\": {\"legendPosition\": \"right\", \"isDonut\": true, \"addTooltip\": true, \"addLegend\": true}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"event.action\", \"order\": \"desc\", \"size\": 50}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Audit Event Types ECS\"}"
+            }, 
+            "id": "6295bdd0-0a0e-11e7-825f-6748cda7d858-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"filebeat-*\", \"query\": {\"query\": \"event.action:EXECVE\", \"language\": \"kuery\"}}"
+                }, 
+                "title": "Top Exec Commands [Filebeat Auditd] ECS", 
+                "uiStateJSON": "{\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}", 
+                "version": 1, 
+                "visState": "{\"type\": \"table\", \"listeners\": {}, \"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}, \"perPage\": 10, \"showPartialRows\": false, \"totalFunc\": \"sum\", \"showTotal\": false, \"showMeticsAtAllLevels\": false}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"auditd.log.a0\", \"customLabel\": \"Command (arg 0)\", \"order\": \"desc\", \"size\": 30}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"bucket\"}], \"title\": \"Audit Top Exec Commands ECS\"}"
+            }, 
+            "id": "5ebdbe50-0a0f-11e7-825f-6748cda7d858-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{}"
+                }, 
+                "title": "Event Results [Filebeat Auditd] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"auto\", \"expression\": \".es(q=\\\"event.dataset:auditd.log NOT event.outcome:failure\\\").label(\\\"Success\\\"), .es(q=\\\"event.outcome:failed\\\").label(\\\"Failure\\\").title(\\\"Audit Event Results\\\")\"}, \"aggs\": [], \"title\": \"Event Results [Filebeat Auditd] ECS\"}"
+            }, 
+            "id": "2bb0fa70-0a11-11e7-9e84-43da493ad0c7-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"filebeat-*\", \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "title": "Event Address Geo Location [Filebeat Auditd] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"tile_map\", \"listeners\": {}, \"params\": {\"mapCenter\": [15, 5], \"heatMaxZoom\": 16, \"wms\": {\"url\": \"https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer\", \"enabled\": false, \"options\": {\"layers\": \"0\", \"styles\": \"\", \"attribution\": \"Maps provided by USGS\", \"format\": \"image/png\", \"version\": \"1.3.0\", \"transparent\": true}}, \"heatBlur\": 15, \"heatRadius\": 25, \"heatMinOpacity\": 0.1, \"legendPosition\": \"bottomright\", \"mapZoom\": 2, \"heatNormalizeData\": true, \"mapType\": \"Scaled Circle Markers\", \"isDesaturated\": true, \"addTooltip\": true}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"field\": \"source.geo.location\", \"precision\": 2, \"autoPrecision\": true}, \"type\": \"geohash_grid\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Audit Event Address Geo Location ECS\"}"
+            }, 
+            "id": "d1726930-0a7f-11e7-8b04-eb22a5669f27-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"filebeat-*\", \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "title": "Event Account Tag Cloud [Filebeat Auditd] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"tagcloud\", \"listeners\": {}, \"params\": {\"maxFontSize\": 42, \"scale\": \"linear\", \"hideLabel\": false, \"orientation\": \"single\", \"minFontSize\": 15}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"user.name\", \"order\": \"desc\", \"size\": 15}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Audit Event Account Tag Cloud ECS\"}"
+            }, 
+            "id": "c5411910-0a87-11e7-8b04-eb22a5669f27-ecs", 
+            "type": "visualization", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "columns": [
+                    "event.action", 
+                    "auditd.log.sequence", 
+                    "user.name"
+                ], 
+                "description": "", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"filebeat-*\", \"version\": true, \"highlightAll\": true, \"query\": {\"query\": \"event.dataset:auditd.log\", \"language\": \"kuery\"}}"
+                }, 
+                "sort": [
+                    "@timestamp", 
+                    "desc"
+                ], 
+                "title": "Audit Events [Filebeat Auditd] ECS", 
+                "version": 1
+            }, 
+            "id": "4ac0a370-0a11-11e7-8b04-eb22a5669f27-ecs", 
+            "type": "search", 
+            "version": 2
+        }, 
+        {
+            "attributes": {
+                "description": "Dashboard for the Auditd Filebeat module", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"version\": true, \"highlightAll\": true}"
+                }, 
+                "optionsJSON": "{\"darkTheme\": false}", 
+                "panelsJSON": "[{\"type\": \"visualization\", \"id\": \"6295bdd0-0a0e-11e7-825f-6748cda7d858-ecs\", \"size_x\": 4, \"size_y\": 4, \"panelIndex\": 1, \"col\": 1, \"row\": 1}, {\"type\": \"visualization\", \"id\": \"5ebdbe50-0a0f-11e7-825f-6748cda7d858-ecs\", \"size_x\": 4, \"size_y\": 4, \"panelIndex\": 2, \"col\": 9, \"row\": 1}, {\"type\": \"visualization\", \"id\": \"2bb0fa70-0a11-11e7-9e84-43da493ad0c7-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 3, \"col\": 1, \"row\": 5}, {\"type\": \"visualization\", \"id\": \"d1726930-0a7f-11e7-8b04-eb22a5669f27-ecs\", \"size_x\": 6, \"size_y\": 3, \"panelIndex\": 5, \"col\": 7, \"row\": 5}, {\"type\": \"visualization\", \"id\": \"c5411910-0a87-11e7-8b04-eb22a5669f27-ecs\", \"size_x\": 4, \"size_y\": 4, \"panelIndex\": 6, \"col\": 5, \"row\": 1}, {\"sort\": [\"@timestamp\", \"desc\"], \"type\": \"search\", \"id\": \"4ac0a370-0a11-11e7-8b04-eb22a5669f27-ecs\", \"size_x\": 12, \"size_y\": 3, \"panelIndex\": 7, \"col\": 1, \"columns\": [\"event.action\", \"auditd.log.sequence\", \"user.name\"], \"row\": 8}]", 
+                "timeRestore": false, 
+                "title": "[Filebeat Auditd] Audit Events ECS", 
+                "uiStateJSON": "{\"P-5\": {\"mapCollar\": {\"zoom\": 2, \"bottom_right\": {\"lat\": -87.16078, \"lon\": 180}, \"top_left\": {\"lat\": 87.16078, \"lon\": -180}}, \"mapZoom\": 2, \"mapBounds\": {\"bottom_right\": {\"lat\": -43.580390855607845, \"lon\": 102.65625}, \"top_left\": {\"lat\": 43.58039085560784, \"lon\": -102.3046875}}}, \"P-2\": {\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}}", 
+                "version": 1
+            }, 
+            "id": "dfbb49f0-0a0f-11e7-8a62-2d05eaaac5cb-ecs", 
+            "type": "dashboard", 
+            "version": 4
+        }
+    ], 
+    "version": "6.0.0-beta1-SNAPSHOT"
+}

@@ -1,0 +1,154 @@
+{
+    "objects": [
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "savedSearchId": "1c2bcec0-86d1-11e8-b59d-21efb914e65c-ecs", 
+                "title": "Top Alerting Hosts [Suricata] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"histogram\", \"params\": {\"seriesParams\": [{\"showCircles\": true, \"show\": \"true\", \"data\": {\"id\": \"1\", \"label\": \"Count\"}, \"mode\": \"stacked\", \"drawLinesBetweenPoints\": true, \"valueAxis\": \"ValueAxis-1\", \"type\": \"histogram\"}], \"type\": \"histogram\", \"categoryAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\"}, \"show\": true, \"title\": {}, \"labels\": {\"truncate\": 100, \"show\": true}, \"position\": \"bottom\", \"type\": \"category\", \"id\": \"CategoryAxis-1\"}], \"legendPosition\": \"right\", \"addTimeMarker\": false, \"addLegend\": true, \"grid\": {\"style\": {\"color\": \"#eee\"}, \"categoryLines\": false}, \"times\": [], \"addTooltip\": true, \"valueAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\", \"mode\": \"normal\"}, \"name\": \"LeftAxis-1\", \"show\": true, \"title\": {\"text\": \"Count\"}, \"labels\": {\"filter\": false, \"rotate\": 0, \"truncate\": 100, \"show\": true}, \"position\": \"left\", \"type\": \"value\", \"id\": \"ValueAxis-1\"}]}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"customInterval\": \"2h\", \"field\": \"@timestamp\", \"interval\": \"auto\", \"min_doc_count\": 1, \"extended_bounds\": {}}, \"type\": \"date_histogram\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"host.name\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 10}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"group\"}], \"title\": \"Top Alerting Hosts [Suricata] ECS\"}"
+            }, 
+            "id": "494fa290-86d2-11e8-b59d-21efb914e65c-ecs", 
+            "type": "visualization", 
+            "updated_at": "2018-11-07T22:56:23.933Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "savedSearchId": "1c2bcec0-86d1-11e8-b59d-21efb914e65c-ecs", 
+                "title": "Top Alert Signatures [Suricata] ECS", 
+                "uiStateJSON": "{\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}", 
+                "version": 1, 
+                "visState": "{\"type\": \"table\", \"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}, \"perPage\": 10, \"showPartialRows\": false, \"showMetricsAtAllLevels\": false, \"totalFunc\": \"sum\", \"showTotal\": false}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"customLabel\": \"Alert Signature\", \"missingBucketLabel\": \"Missing\", \"field\": \"suricata.eve.alert.signature\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 10}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"bucket\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"customLabel\": \"Alert Category\", \"missingBucketLabel\": \"Missing\", \"field\": \"suricata.eve.alert.category\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"bucket\"}], \"title\": \"Top Alert Signatures [Suricata] ECS\"}"
+            }, 
+            "id": "16033310-86d3-11e8-b59d-21efb914e65c-ecs", 
+            "type": "visualization", 
+            "updated_at": "2018-11-07T22:56:23.933Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "columns": [
+                    "host.name", 
+                    "suricata.eve.flow_id", 
+                    "source.ip", 
+                    "source.port", 
+                    "destination.ip", 
+                    "destination.port", 
+                    "source.geo.country_iso_code", 
+                    "destination.geo.country_iso_code"
+                ], 
+                "description": "", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [{\"query\": {\"match\": {\"suricata.eve.event_type\": {\"query\": \"alert\", \"type\": \"phrase\"}}}, \"meta\": {\"index\": \"filebeat-*\", \"value\": \"alert\", \"disabled\": false, \"alias\": null, \"params\": {\"query\": \"alert\", \"type\": \"phrase\"}, \"key\": \"suricata.eve.event_type\", \"negate\": false, \"type\": \"phrase\"}, \"$state\": {\"store\": \"appState\"}}, {\"query\": {\"match\": {\"event.module\": {\"query\": \"suricata\", \"type\": \"phrase\"}}}, \"meta\": {\"index\": \"filebeat-*\", \"value\": \"suricata\", \"disabled\": false, \"alias\": null, \"params\": {\"query\": \"suricata\", \"type\": \"phrase\"}, \"key\": \"event.module\", \"negate\": false, \"type\": \"phrase\"}, \"$state\": {\"store\": \"appState\"}}], \"index\": \"filebeat-*\", \"version\": true, \"highlightAll\": true, \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "sort": [
+                    "@timestamp", 
+                    "desc"
+                ], 
+                "title": "Alerts [Suricata] ECS", 
+                "version": 1
+            }, 
+            "id": "1c2bcec0-86d1-11e8-b59d-21efb914e65c-ecs", 
+            "type": "search", 
+            "updated_at": "2018-11-07T22:56:23.933Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "savedSearchId": "1c2bcec0-86d1-11e8-b59d-21efb914e65c-ecs", 
+                "title": "Alert - Source Location [Suricata] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"tile_map\", \"params\": {\"mapCenter\": [0, 0], \"mapZoom\": 2, \"colorSchema\": \"Yellow to Red\", \"wms\": {\"selectedTmsLayer\": {\"attribution\": \"<p>&#169; <a href=\\\"http://www.openstreetmap.org/copyright\\\">OpenStreetMap</a> contributors | <a href=\\\"https://www.elastic.co/elastic-maps-service\\\">Elastic Maps Service</a></p>&#10;\", \"url\": \"https://tiles.maps.elastic.co/v2/default/{z}/{x}/{y}.png?elastic_tile_service_tos=agree&my_app_name=kibana&my_app_version=6.3.0&license=fc9de2c1-5f06-4080-8dd0-8a334171d89a\", \"subdomains\": [], \"minZoom\": 0, \"maxZoom\": 18, \"id\": \"road_map\"}, \"baseLayersAreLoaded\": {}, \"enabled\": false, \"options\": {\"transparent\": true, \"format\": \"image/png\"}, \"tmsLayers\": [{\"attribution\": \"<p>&#169; <a href=\\\"http://www.openstreetmap.org/copyright\\\">OpenStreetMap</a> contributors | <a href=\\\"https://www.elastic.co/elastic-maps-service\\\">Elastic Maps Service</a></p>&#10;\", \"url\": \"https://tiles.maps.elastic.co/v2/default/{z}/{x}/{y}.png?elastic_tile_service_tos=agree&my_app_name=kibana&my_app_version=6.3.0&license=fc9de2c1-5f06-4080-8dd0-8a334171d89a\", \"subdomains\": [], \"minZoom\": 0, \"maxZoom\": 18, \"id\": \"road_map\"}]}, \"legendPosition\": \"bottomright\", \"heatClusterSize\": 1.5, \"mapType\": \"Scaled Circle Markers\", \"isDesaturated\": true, \"addTooltip\": true}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"mapCenter\": [0, 0], \"useGeocentroid\": true, \"isFilteredByCollar\": true, \"precision\": 2, \"mapZoom\": 2, \"field\": \"source.geo.location\", \"autoPrecision\": true}, \"type\": \"geohash_grid\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Alert - Source Location [Suricata] ECS\"}"
+            }, 
+            "id": "85fed080-86d7-11e8-b59d-21efb914e65c-ecs", 
+            "type": "visualization", 
+            "updated_at": "2018-11-07T22:56:23.933Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "savedSearchId": "1c2bcec0-86d1-11e8-b59d-21efb914e65c-ecs", 
+                "title": "Alert - Destination Location [Suricata] ECS", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"tile_map\", \"params\": {\"mapCenter\": [0, 0], \"mapZoom\": 2, \"colorSchema\": \"Yellow to Red\", \"wms\": {\"selectedTmsLayer\": {\"attribution\": \"<p>&#169; <a href=\\\"http://www.openstreetmap.org/copyright\\\">OpenStreetMap</a> contributors | <a href=\\\"https://www.elastic.co/elastic-maps-service\\\">Elastic Maps Service</a></p>&#10;\", \"url\": \"https://tiles.maps.elastic.co/v2/default/{z}/{x}/{y}.png?elastic_tile_service_tos=agree&my_app_name=kibana&my_app_version=6.3.0&license=fc9de2c1-5f06-4080-8dd0-8a334171d89a\", \"subdomains\": [], \"minZoom\": 0, \"maxZoom\": 18, \"id\": \"road_map\"}, \"baseLayersAreLoaded\": {}, \"enabled\": false, \"options\": {\"transparent\": true, \"format\": \"image/png\"}, \"tmsLayers\": [{\"attribution\": \"<p>&#169; <a href=\\\"http://www.openstreetmap.org/copyright\\\">OpenStreetMap</a> contributors | <a href=\\\"https://www.elastic.co/elastic-maps-service\\\">Elastic Maps Service</a></p>&#10;\", \"url\": \"https://tiles.maps.elastic.co/v2/default/{z}/{x}/{y}.png?elastic_tile_service_tos=agree&my_app_name=kibana&my_app_version=6.3.0&license=fc9de2c1-5f06-4080-8dd0-8a334171d89a\", \"subdomains\": [], \"minZoom\": 0, \"maxZoom\": 18, \"id\": \"road_map\"}]}, \"legendPosition\": \"bottomright\", \"heatClusterSize\": 1.5, \"mapType\": \"Scaled Circle Markers\", \"isDesaturated\": true, \"addTooltip\": true}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"mapCenter\": [0, 0], \"useGeocentroid\": true, \"isFilteredByCollar\": true, \"precision\": 2, \"mapZoom\": 2, \"field\": \"destination.geo.location\", \"autoPrecision\": true}, \"type\": \"geohash_grid\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Alert - Destination Location [Suricata] ECS\"}"
+            }, 
+            "id": "a09ca070-86d7-11e8-b59d-21efb914e65c-ecs", 
+            "type": "visualization", 
+            "updated_at": "2018-11-07T22:56:23.933Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "savedSearchId": "1c2bcec0-86d1-11e8-b59d-21efb914e65c-ecs", 
+                "title": "Alerts - Top Destination Countries [Suricata] ECS", 
+                "uiStateJSON": "{\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}", 
+                "version": 1, 
+                "visState": "{\"type\": \"table\", \"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}, \"perPage\": 5, \"showPartialRows\": false, \"showMetricsAtAllLevels\": false, \"totalFunc\": \"sum\", \"showTotal\": false}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"customLabel\": \"Source Country\", \"missingBucketLabel\": \"Missing\", \"field\": \"destination.geo.country_iso_code\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 10}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"bucket\"}], \"title\": \"Alerts - Top Destination Countries [Suricata] ECS\"}"
+            }, 
+            "id": "2ccdc1a0-86d8-11e8-b59d-21efb914e65c-ecs", 
+            "type": "visualization", 
+            "updated_at": "2018-11-07T22:56:23.933Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}}"
+                }, 
+                "savedSearchId": "1c2bcec0-86d1-11e8-b59d-21efb914e65c-ecs", 
+                "title": "Alerts - Top Source Countries [Suricata] ECS", 
+                "uiStateJSON": "{\"vis\": {\"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}}}}", 
+                "version": 1, 
+                "visState": "{\"type\": \"table\", \"params\": {\"sort\": {\"columnIndex\": null, \"direction\": null}, \"perPage\": 5, \"showPartialRows\": false, \"showMetricsAtAllLevels\": false, \"totalFunc\": \"sum\", \"showTotal\": false}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"customLabel\": \"Source Country\", \"missingBucketLabel\": \"Missing\", \"field\": \"source.geo.country_iso_code\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 10}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"bucket\"}], \"title\": \"Alerts - Top Source Countries [Suricata] ECS\"}"
+            }, 
+            "id": "c7b8b8f0-86d8-11e8-b59d-21efb914e65c-ecs", 
+            "type": "visualization", 
+            "updated_at": "2018-11-07T22:56:23.933Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "Overview of the Suricata Alerts dashboard.", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"version\": true, \"highlightAll\": true}"
+                }, 
+                "optionsJSON": "{\"useMargins\": true, \"darkTheme\": false, \"hidePanelTitles\": false}", 
+                "panelsJSON": "[{\"gridData\": {\"i\": \"1\", \"h\": 10, \"y\": 0, \"w\": 23, \"x\": 0}, \"embeddableConfig\": {}, \"panelIndex\": \"1\", \"version\": \"6.3.0\", \"type\": \"visualization\", \"id\": \"494fa290-86d2-11e8-b59d-21efb914e65c-ecs\"}, {\"gridData\": {\"i\": \"2\", \"h\": 22, \"y\": 0, \"w\": 25, \"x\": 23}, \"embeddableConfig\": {}, \"panelIndex\": \"2\", \"version\": \"6.3.0\", \"type\": \"visualization\", \"id\": \"16033310-86d3-11e8-b59d-21efb914e65c-ecs\"}, {\"gridData\": {\"i\": \"3\", \"h\": 16, \"y\": 37, \"w\": 48, \"x\": 0}, \"embeddableConfig\": {}, \"panelIndex\": \"3\", \"version\": \"6.3.0\", \"type\": \"search\", \"id\": \"1c2bcec0-86d1-11e8-b59d-21efb914e65c-ecs\"}, {\"gridData\": {\"i\": \"4\", \"h\": 15, \"y\": 22, \"w\": 23, \"x\": 0}, \"embeddableConfig\": {\"mapCenter\": [38.548165423046584, -6.328125000000001], \"mapZoom\": 2}, \"panelIndex\": \"4\", \"version\": \"6.3.0\", \"type\": \"visualization\", \"id\": \"85fed080-86d7-11e8-b59d-21efb914e65c-ecs\"}, {\"gridData\": {\"i\": \"5\", \"h\": 15, \"y\": 22, \"w\": 25, \"x\": 23}, \"embeddableConfig\": {\"mapCenter\": [41.77131167976407, 1.9335937500000002], \"mapZoom\": 2}, \"panelIndex\": \"5\", \"version\": \"6.3.0\", \"type\": \"visualization\", \"id\": \"a09ca070-86d7-11e8-b59d-21efb914e65c-ecs\"}, {\"gridData\": {\"i\": \"7\", \"h\": 12, \"y\": 10, \"w\": 12, \"x\": 11}, \"embeddableConfig\": {}, \"panelIndex\": \"7\", \"version\": \"6.3.0\", \"type\": \"visualization\", \"id\": \"2ccdc1a0-86d8-11e8-b59d-21efb914e65c-ecs\"}, {\"gridData\": {\"i\": \"8\", \"h\": 12, \"y\": 10, \"w\": 11, \"x\": 0}, \"embeddableConfig\": {}, \"panelIndex\": \"8\", \"version\": \"6.3.0\", \"type\": \"visualization\", \"id\": \"c7b8b8f0-86d8-11e8-b59d-21efb914e65c-ecs\"}]", 
+                "timeRestore": false, 
+                "title": "[Suricata] Alert Overview ECS", 
+                "version": 1
+            }, 
+            "id": "05268ee0-86d1-11e8-b59d-21efb914e65c-ecs", 
+            "type": "dashboard", 
+            "updated_at": "2018-11-07T22:56:23.933Z", 
+            "version": 1
+        }
+    ], 
+    "version": "6.4.3"
+}
