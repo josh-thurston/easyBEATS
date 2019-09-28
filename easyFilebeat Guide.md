@@ -79,3 +79,27 @@ Sep 28 20:17:36 raspberrypi filebeat[31053]: 2019-09-28T20:17:36.483+0100       
 
 ```sudo systemctl restart filebeat.service```
 
+**Note:** If you have a problem getting the servie to start, check that the filebeat service file is propery created / formatted
+
+It is located in ```/lib/systemd/system/```
+
+Make sure it matches the following.  If not, copy and paste the following.  Then enable and start the service
+
+```
+[Unit]
+Description=Filebeat sends log files to Logstash or directly to Elasticsearch.
+Documentation=https://www.elastic.co/products/beats/filebeat
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+
+Environment="BEAT_LOG_OPTS=-e"
+Environment="BEAT_CONFIG_OPTS=-c /etc/filebeat/filebeat.yml"
+Environment="BEAT_PATH_OPTS=-path.home /usr/share/filebeat -path.config /etc/fi$
+ExecStart=/usr/share/filebeat/bin/filebeat $BEAT_LOG_OPTS $BEAT_CONFIG_OPTS $BE$
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
