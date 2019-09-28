@@ -51,7 +51,7 @@ After creating the various data shippers (Auditbeat, Filebeat, Heartbeat, Metric
 Example: Filebeat
 
 1. Edit filebeat.yml. 
-```nano $HOME/beats/filebeat/filbeat.yml```
+```nano /etc/filebeat/filbeat.yml```
 2. Configure filebeat.yml
 3. Enable modules needed for your preferences.
 
