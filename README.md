@@ -1,7 +1,6 @@
 # pibeat Setup Guide
 
-At the time of creating this script, Elastic has not released an ARM version for Beats, so it is necessary to build a 
-the Beats data shippers for arm architecture.  
+Elastic has not released an ARM version for Beats, so it is necessary to build a the Beats data shippers for arm architecture. 
 
 pibeat will create:
 
@@ -9,6 +8,11 @@ pibeat will create:
 - [Filebeat](https://www.elastic.co/products/beats/filebeat)
 - [Heartbeat](https://www.elastic.co/products/beats/heartbeat)
 - [Metricbeat](https://www.elastic.co/products/beats/metricbeat)
+
+# For Filebeat Setup Only
+
+Download the easyFilebeat installer and read teh easyFilebeat Guide
+
 
 Testing was performed on Raspberry Pi 3.+ and Raspberry Pi 4.  
 
@@ -46,7 +50,7 @@ After pibeat finishes, you will need to open up and edit some files
 
 # Configure Beats Data Shippers
 
-After creating the various data shippers (Auditbeat, Filebeat, Heartbeat, Metricbeat), the script places them in $HOME/beats.  Locate the shipper(s) you want to use and configure them as needed for your environment.
+After creating the various data shippers (Auditbeat, Filebeat, Heartbeat, Metricbeat).  Locate the shipper(s) you want to use and configure them as needed for your environment.
 
 Example: Filebeat
 
