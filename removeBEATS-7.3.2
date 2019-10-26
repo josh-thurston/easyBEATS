@@ -1,0 +1,42 @@
+#!/bin/bash
+
+echo "Stopping services..."
+sudo /bin/systemctl daemon-reload
+sudo systemctl stop filebeat metricbeat packetbeat auditbeat
+sudo systemctl disable filebeat metricbeat packetbeat auditbeat
+sudo rm /etc/init.d/filebeat
+sudo rm /etc/init.d/metricbeat
+sudo rm /etc/init.d/packetbeat
+sudo rm /etc/init.d/auditbeat
+sudo rm /lib/systemd/system/filebeat.service
+sudo rm /lib/systemd/system/auditbeat.service
+sudo rm /lib/systemd/system/packetbeat.service
+sudo rm /lib/systemd/system/metricbeat.service
+sudo /bin/systemctl daemon-reload
+echo "Removing Beats... "
+sudo apt remove filebeat -y
+sudo apt remove packetbeat -y
+sudo apt remove auditbeat -y
+sudo apt remove metricbeat -y
+sudo rm -rf /etc/filebeat
+sudo rm -rf /etc/packetbeat
+sudo rm -rf /etc/metricbeat
+sudo rm -rf /etc/auditbeat
+sudo rm -rf /usr/share/filebeat
+sudo rm -rf /usr/share/packetbeat
+sudo rm -rf /usr/share/metricbeat
+sudo rm -rf /usr/share/auditbeat
+sudo rm -rf /var/lib/filebeat
+sudo rm -rf /var/lib/packetbeat
+sudo rm -rf /var/lib/metricbeat
+sudo rm -rf /var/lib/auditbeat
+sudo rm -rf /var/log/filebeat
+sudo rm -rf /var/log/packetbeat
+sudo rm -rf /var/log/metricbeat
+sudo rm -rf /var/log/auditbeat
+sudo /bin/systemctl daemon-reload
+echo "Removing Build Directories"
+rm -rf $HOME/go
+rm -rf $HOME/easyBEATS_log.txt
+rm $HOME/pibeat_log.txt
+echo "Finished"

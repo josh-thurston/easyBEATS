@@ -1,0 +1,19 @@
+#!/bin/bash
+
+brew uninstall packetbeat-full
+brew uninstall metricbeat-full
+brew uninstall auditbeat-full
+brew uninstall filebeat-full
+brew uninstall osquery
+
+sudo rm -rf /usr/local/var/homebrew/linked/filebeat-full
+sudo rm -rf /usr/local/var/homebrew/linked/auditbeat-full
+sudo rm -rf /usr/local/var/homebrew/linked/packetbeat-full
+sudo rm -rf /usr/local/var/homebrew/linked/metricbeat-full
+cd /usr/local/etc
+rm -rf auditbeat filebeat packetbeat metricbeat
+cd /usr/local/var/lib
+rm -rf auditbeat filebeat packetbeat metricbeat
+cd /usr/local/var/log
+rm -rf auditbeat filebeat packetbeat metricbeat
+exit

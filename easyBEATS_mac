@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo " ---- Checking Homebrew ----"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+echo " ---- Installing Filebeat ----"
+echo Installing Filebeat now
+brew tap elastic/tap
+brew install elastic/tap/filebeat-full
+echo " ---- Installing Metricbeat ----"
+echo Installing Metricbeat now
+brew tap elastic/tap
+brew install elastic/tap/metricbeat-full
+echo " ---- Installing Packetbeat ----"
+echo Installing Packetbeat now
+brew tap elastic/tap
+brew install elastic/tap/packetbeat-full
+echo " ---- Installing Auditbeat ----"
+brew tap elastic/tap
+brew install elastic/tap/auditbeat-full
+echo " ---- Now It's Your Turn: Finsh Configuration ----"
