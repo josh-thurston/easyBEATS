@@ -1,59 +1,126 @@
-# pibeat Setup Guide
+# easyBEATS
 
-Elastic has not released an ARM version for Beats, so it is necessary to build a the Beats data shippers for arm architecture. 
+easyBEATS is a project started to make the installation of Beats packages faster and easier for Ubuntu, Mac, and even Raspberry Pi (ARM architecture)
 
-pibeat will create:
+## How To Use
 
+### beats_arm
 
+Elastic.co has not released any of the Beats shippers for ARM architecture.  The beats_arm installer will download source code, compile an arm version, and prep the system for use.  The installer will prepare Filebeat, Packetbet, Metricbeat, and Auditbeat for use.  There are some TODO items as well as some quirks that I have noticed and not been able to solve yet. I have those TODO items and quirks noted below.  
 
-# For Filebeat Setup Only
+1. Download beats_arm.zip and extract the contents
+2. Copy beats_arm to your system
+3. Inside beats_arm you will find an easyBEATS-7.3.2_arm install script
+4. You need to make it executable and run it
 
-Download the easyFilebeat installer and read teh easyFilebeat Guide
+```
+sudo chmod +x easyBEATS-7.3.2_arm
+./easyBEATS-7.3.2_arm
+```
 
+5. After the sccript is finished, configure each of the Beats shippers
+    - /etc/filebeat/filebeat.yml
+    - /etc/metricbeat/metricbeat.yml
+    - /etc/packetbeat/packetbeat.yml
+    - /etc/auditbeat/auditbeat.yml
+6. The script has already prepared the system to launch the service at boot / re-boot.  You just need to start the service after you configure
 
-Testing was performed on Raspberry Pi 3.+ and Raspberry Pi 4.  
+```
+sudo systemctl start filebeat metricbeat packetbeat auditbeat
+```
 
-System information for both is listed below with the commands to lookup the info on your system. If your system does not match
-the following information, you may need to make some modifications.
+7. Run the setup command for each to finalize
 
-**System Info**
+```
+sudo /usr/share/filebeat/bin/filebeat setup -e -c /etc/filebeat/filebeat.yml
+```
 
-```cat /etc/issue```
-OS - Raspbian GNU/Linux 10
-OS - Raspbian GNU/Linux 10 \n 1
+Repeat the command and change the name of filebeat to each of the other beats
 
-```cat /etc/debian_version```
-10.0
-10.1
+**Quirks:**
 
-```python -V ```
-Python 2.7.16
+1. I am unable to get the Path working correctly for the beats products.  Some normal command either dont work or you must use a workaround.  an example of a workaround is in the previous step to launch setup.  A normal setup on a system such as Ubunut, you just type "filebeat setup -e" and it will work.  
+2. Some of the beats products use 'modules' to extend functionality.  Typically you can type something similar to "filebeat modules enable osquery" to enable and use the module. I have not been able to get that command to work.  To use the modules, you will need to configure the module inside the configuration file. 
+    - [filebeat example](https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-modules.html)
 
-```python3 -V ```
-Python 3.7.3
+**TODO:**
 
-```git --version ```
-git version 2.20.1
+1. Need to work on the Auditbeat script.  Getting Auditbeat to function on arm has been inconsistent in testing with Raspberry Pi 3b+ and Raspberry Pi 4.  Getting erros on supported architecture that need resolved.
+2. Need to fix the Path issue noted in the Quirks section.
 
-# Running pibeat
+### Debian (Ubuntu)
 
-1. Copy pibeat to the Raspberry Pi (/home/pi)
-2. Make pibeat executable
-```chmod +x pibeat```
-3. Run pibeat
-``./pibeat``
+easyBEATS-7.3.2_deb will install Filebeat, Metricbeat, Packetbeat, and Auditbeat.  It *Does Not* use apt-get and the script puts each of the beats packages on apt-get hold to prevent accidental upgrading.  If you want to upgrade you must remove the hold.  I do this to avoid accidentally upgrading my beats clients to a newer version that my ELK stack.
 
-After pibeat finishes, you will need to open up and edit some files
+1. Download easyBEATS-7.3.2_deb 
+2. Copy to your debian system
+3. Make it executable and run it
 
-# Configure Beats Data Shippers
+```
+sudo chmod +x easyBEATS-7.3.2_deb
+./easyBEATS-7.3.2_deb
+```
 
-After creating the various data shippers (Auditbeat, Filebeat, Heartbeat, Metricbeat).  Locate the shipper(s) you want to use and configure them as needed for your environment.
+4. After the sccript is finished, configure each of the Beats shippers
+    - /etc/filebeat/filebeat.yml
+    - /etc/metricbeat/metricbeat.yml
+    - /etc/packetbeat/packetbeat.yml
+    - /etc/auditbeat/auditbeat.yml
+5. The script has already prepared the system to launch the service at boot / re-boot.  You just need to start the service after you configure
 
-Example: Filebeat
+```
+sudo systemctl start filebeat metricbeat packetbeat auditbeat
+```
 
-1. Edit filebeat.yml. 
-```nano /etc/filebeat/filbeat.yml```
-2. Configure filebeat.yml
-3. Enable modules needed for your preferences.
+7. Run the setup command for each to finalize
 
-Reference Filebeat [Documentation](https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html)
+```
+filebeat setup -e
+```
+
+Repeat the command and change the name of filebeat to each of the other beats
+
+**TODO:**
+
+Finalizing the script for easyBEATS-7.4.1_deb
+
+### Mac
+
+easyBEATS_mac will install Filebeat, Metricbeat, Packetbeat, and Auditbeat using Homebrew. It will install whatever the latest version is availabe from Homebrew.  If your Mac does not have Homebrew installed, the script will install it for you.
+
+**Note:** The directory layout for Mac is slightly different than other installations.  You can find reference [elastic here](https://www.elastic.co/guide/en/beats/filebeat/current/directory-layout.html) for a listing of the directory layout by system type.  
+
+1. Download easyBEATS_mac 
+2. Copy to your Mac system
+3. Make it executable and run it
+
+```
+sudo chmod +x easyBEATS_mac
+./easyBEATS_mac
+```
+
+4. After the sccript is finished, configure each of the Beats shippers
+    - /usr/local/etc/filebeat/filebeat.yml
+    - /usr/local/etc/metricbeat/metricbeat.yml
+    - /usr/local/etc/packetbeat/packetbeat.yml
+    - usr/local/etc/auditbeat/auditbeat.yml
+
+```
+brew services start elastic/tap/filebeat-full
+```
+
+7. Run the setup command for each to finalize
+
+```
+filebeat -e
+```
+
+Repeat the command and change the name of filebeat to each of the other beats
+
+### Remove / Uninstall
+
+If you mess up or you want to remove everything you can run removeBEATS-7.3.2 on arm and deb, or removeBEATS_mac for Mac OS X. 
+
+## Additional Info
+
+Check out [Beats](https://www.elastic.co/products/beats) and prepare data shippers.
