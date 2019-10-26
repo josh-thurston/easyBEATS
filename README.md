@@ -4,10 +4,7 @@ Elastic has not released an ARM version for Beats, so it is necessary to build a
 
 pibeat will create:
 
-- [Auditbeat](https://www.elastic.co/products/beats/auditbeat)
-- [Filebeat](https://www.elastic.co/products/beats/filebeat)
-- [Heartbeat](https://www.elastic.co/products/beats/heartbeat)
-- [Metricbeat](https://www.elastic.co/products/beats/metricbeat)
+
 
 # For Filebeat Setup Only
 
