@@ -9,8 +9,28 @@ easyBEATS is a project started to make the installation of Beats packages faster
 Elastic.co has not released any of the Beats shippers for ARM architecture.  The beats_arm installer will download source code, compile an arm version, and prep the system for use.  The installer will prepare Filebeat, Packetbet, Metricbeat, and Auditbeat for use.  There are some TODO items as well as some quirks that I have noticed and not been able to solve yet. I have those TODO items and quirks noted below.  
 
 1. Download beats_arm.zip and extract the contents
-2. Copy beats_arm to your system
+2. Move beats_arm to your home directory; the script is designed to work from the home directory of the pi user.
+```
+mv beats_arm/ /home/pi/
+
+```
+
 3. Inside beats_arm you will find an easyBEATS-7.3.2_arm install script
+4. If you would like to install a different version from 7.3.2, visit https://github.com/elastic/beats/releases and get the commit number of the release you want e.g. a9c1414 for version 7.5.2.  Then edit the script accordingly:
+
+```
+cd /home/pi/beats_arm
+vi easyBEATS-7.3.2_arm
+
+#Change the commit number for the variable BEAT_VERSION at the top of the page
+
+BEAT_VERSION="a9c1414"
+
+#Save your changes and quit VI:
+
+Esc ZZ
+```
+
 4. You need to make it executable and run it
 
 ```
