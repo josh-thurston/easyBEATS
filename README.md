@@ -8,7 +8,7 @@ easyBEATS is a project started by josh-thurston to make the installation of Beat
 
 My fork is focused entirely on Raspberry Pi.  It resolves issues related to the outdated golang-go package in the RPi apt repo which prevents the successful installation of Beats newer than v7.3.2.  I've refactored the script such that you can install one or multiple Beats at any version.
 
-The instructions are here so that you can compile Beats on your own, but I'm also including packaged versions of several Beats in case you just want to get started quickly.
+The instructions are here so that you can compile Beats on your own.  If you would prefer something a bit easier that doesn't require compiling source code, visit my [Beats-Pi repo](https://github.com/RaoulDuke-Esq/Beats-Pi) for some pre-baked Beats that you can install via apt.
 
 ## How To Use
 
@@ -23,7 +23,8 @@ cd easyBEATS
 
 Now make the install script executable.
 
-```sudo chmod 755 easyBEATS
+```
+sudo chmod 755 easyBEATS
 ```
 
 ### Configure the script
@@ -96,4 +97,4 @@ File an issue if you run into a problem or have a question.  I'm happy to help!
 
 ## Additional Info
 
-Check out [Beats](https://www.elastic.co/products/beats) and prepare data shippers.
+Check out [Beats](https://www.elastic.co/products/beats) to learn more.
