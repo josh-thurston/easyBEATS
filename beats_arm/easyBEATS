@@ -1,0 +1,211 @@
+#!/bin/bash
+
+# Script variables
+UPDATE_SYSTEM=false
+INSTALL_DEPS=false
+USE_SWAP=false
+WORKING_DIR="beat-factory"
+BEAT_VERSION="a9c1414"
+BEAT_VERSION_NUM="7.5.2"
+BEAT_NAME=( metricbeat filebeat )
+INSTALL_LOCAL=false
+CLEAN_UP=false
+
+function clean_up{
+  rm -rf $HOME/$WORKING_DIR
+  echo "Working directory deleted."
+}
+
+function compile_beats{
+  for beat in "${BEAT_NAME[@]}";
+  do
+    echo "Compiling $beat"
+    cd $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat;
+    GOOS=linux GOARCH=arm go get;
+    make;
+    echo "$beat created"
+  done
+  if [ $USE_SWAP ]:
+  then
+    sudo swapoff -v /swapfile
+    sudo rm /swapfile
+    echo "Swap space disabled."
+  fi
+}
+
+function configure_swap{
+  sudo fallocate -l 2G /swapfile
+  sudo chmod 600 /swapfile
+  sudo mkswap /swapfile
+  sudo swapon /swapfile
+}
+
+function checkout_version{
+  cd $HOME/WORKING_DIR/src/github.com/beats
+  git fetch
+  git checkout $BEAT_VERSION
+}
+
+function copy_source_code{
+  cd $HOME/WORKING_DIR/src/github.com/elastic
+  go get github.com/elastic/beats;
+}
+
+function install_dependencies{
+  if [ $(dpkg-query -W -f='${Status}' python-pip git 2>/dev/null | grep -c "ok installed") -eq 0 ];
+  then
+    echo "Installing python-pip git..."
+    sudo apt-get install python-pip git -y;
+  fi
+
+  if python -c 'import pkgutil; exit(pkgutil.find_loader("virtualenv"))';
+  then
+    echo "Installing virtualenv..."
+    pip install virtualenv
+  fi
+
+  if [ $(dpkg-query -W -f='${Status}' make 2>/dev/null | grep -c "ok installed") -eq 0 ];
+  then
+    echo "Installing make..."
+    sudo apt-get install make -y;
+  fi
+
+  if [ $(dpkg-query -W -f='${Status}' gcc 2>/dev/null | grep -c "ok installed") -eq 0 ];
+  then
+    echo "Installing GCC..."
+    sudo apt-get install build-essential manpages-dev -y;
+  fi
+
+  if [ $(dpkg-query -W -f='${Status}' golang-go 2>/dev/null | grep -c "ok installed") -eq 1 ];
+  then
+    echo "Removing outdated go version"
+    sudo apt remove golang-go -y;
+    sudo apt autoremove -y;
+  fi
+
+  echo "Installing go..."
+  wget https://dl.google.com/go/go1.13.8.linux-armv6l.tar.gz;
+  sudo tar -C /usr/share -xzf go1.13.8.linux-armv6l.tar.gz;
+  sudo chmod -R 775 /usr/share/go/;
+  export PATH=$PATH:/usr/share/go/bin;
+  export GOPATH=$HOME/WORKING_DIR
+  rm go1.13.8.linux-armv6l.tar.gz;
+
+  echo "Dependency installation complete."
+}
+
+function create_working_directory{
+  mkdir -p $HOME/WORKING_DIR/src/github.com/elastic;
+  echo "Working directory created"
+}
+
+function update_system{
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -yq update > /dev/null
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade > /dev/null
+  echo "System update complete"
+}
+
+function install_local{
+  for beat in "${BEAT_NAME[@]}";
+  if [ ! -d /usr/share/$beat ];
+  then
+    echo "Creating /usr/share/$beat directory..."
+    sudo mkdir -p /usr/share/$beat/bin;
+  fi
+
+  if  [ ! -d /etc/$beat ];
+  then
+    echo "Creating /etc/$beat directory..."
+    sudo mkdir -p /etc/$beat;
+  fi
+
+  if [ ! -d /var/lib/$beat ];
+  then
+    echo "Creating /var/lib/$beat directory..."
+    sudo mkdir -p /var/lib/$beat
+  fi
+
+  echo "Installing $beat locally..."
+  sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat /usr/share/$beat/bin
+  sudo cp -R $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/module /usr/share/$beat
+  sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat.reference.yml /etc/$beat
+  sudo cp -R $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/modules.d/ /etc/$beat
+  sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat.yml /etc/$beat
+
+  wget -qO /lib/systemd/system/$beat.service https://raw.githubusercontent.com/RaoulDuke-Esq/easyBEATS/services/$beat.service
+
+  sudo chmod -R 755 /etc/$beat/;
+  sudo chown -R root:root /etc/$beat;
+  sudo chown -R root:root /usr/share/$beat/*;
+  sudo /bin/systemctl daemon-reload;
+  sudo systemctl enable $beat;
+}
+
+echo "---------------------------------------------------------------"
+if [ UPDATE_SYSTEM ];
+then
+  echo "Performing system update..."
+  update_system
+else
+  echo "Skipping system update"
+fi
+
+echo "---------------------------------------------------------------"
+
+if [ ! -d $HOME/$WORKING_DIR ];
+then
+  create_working_directory
+else
+  echo "Working directory already exists"
+fi
+
+echo "---------------------------------------------------------------"
+
+if [ INSTALL_DEPS ];
+then
+  echo "Installing dependencies..."
+  install_dependencies
+else
+  echo "Skipping dependency installation"
+fi
+
+echo "---------------------------------------------------------------"
+
+echo "Copying source code from Elastic"
+copy_source_code
+
+echo "---------------------------------------------------------------"
+
+echo "Checking out Beats version $BEAT_VERSION_NUM"
+checkout_version
+
+echo "---------------------------------------------------------------"
+
+if [ USE_SWAP ];
+then
+  echo "Configuring swap space..."
+  configure_swap
+else
+  echo "Proceeding without swap space."
+fi
+
+echo "---------------------------------------------------------------"
+
+echo "Compiling Beats..."
+compile_beats
+
+echo "---------------------------------------------------------------"
+
+if [ $INSTALL_LOCAL ];
+then
+  echo "Installing on your local system..."
+  install_local
+fi
+
+if [ $CLEAN_UP ];
+then
+  echo "Cleaning up working files..."
+  clean_up
+fi
+
+echo "Done, son!"

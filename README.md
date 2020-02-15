@@ -1,6 +1,14 @@
 # easyBEATS
 
-easyBEATS is a project started to make the installation of Beats packages faster and easier for Ubuntu, Mac, and even Raspberry Pi (ARM architecture)
+### Credit where credit is due
+
+easyBEATS is a project started by josh-thurston to make the installation of Beats packages faster and easier for Ubuntu, Mac, and even Raspberry Pi (ARM architecture).
+
+### About this fork
+
+My fork is focused entirely on Raspberry Pi.  It resolves issues related to the outdated golang-go package in the RPi apt repo which prevents the successful installation of Beats newer than v7.3.2.  I've refactored the script such that you can install one or multiple Beats at any version.
+
+The instructions are here so that you can compile Beats on your own, but I'm also including packaged versions of several Beats in case you just want to get started quickly.
 
 ## How To Use
 
@@ -60,7 +68,7 @@ Repeat the command and change the name of filebeat to each of the other beats
 **Quirks:**
 
 1. I am unable to get the Path working correctly for the beats products.  Some normal command either dont work or you must use a workaround.  an example of a workaround is in the previous step to launch setup.  A normal setup on a system such as Ubunut, you just type "filebeat setup -e" and it will work.  
-2. Some of the beats products use 'modules' to extend functionality.  Typically you can type something similar to "filebeat modules enable osquery" to enable and use the module. I have not been able to get that command to work.  To use the modules, you will need to configure the module inside the configuration file. 
+2. Some of the beats products use 'modules' to extend functionality.  Typically you can type something similar to "filebeat modules enable osquery" to enable and use the module. I have not been able to get that command to work.  To use the modules, you will need to configure the module inside the configuration file.
     - [filebeat example](https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-modules.html)
 
 **TODO:**
@@ -72,7 +80,7 @@ Repeat the command and change the name of filebeat to each of the other beats
 
 easyBEATS-7.3.2_deb will install Filebeat, Metricbeat, Packetbeat, and Auditbeat.  It *Does Not* use apt-get and the script puts each of the beats packages on apt-get hold to prevent accidental upgrading.  If you want to upgrade you must remove the hold.  I do this to avoid accidentally upgrading my beats clients to a newer version that my ELK stack.
 
-1. Download easyBEATS-7.3.2_deb 
+1. Download easyBEATS-7.3.2_deb
 2. Copy to your debian system
 3. Make it executable and run it
 
@@ -110,7 +118,7 @@ easyBEATS_mac will install Filebeat, Metricbeat, Packetbeat, and Auditbeat using
 
 **Note:** The directory layout for Mac is slightly different than other installations.  You can find reference [elastic here](https://www.elastic.co/guide/en/beats/filebeat/current/directory-layout.html) for a listing of the directory layout by system type.  
 
-1. Download easyBEATS_mac 
+1. Download easyBEATS_mac
 2. Copy to your Mac system
 3. Make it executable and run it
 
@@ -139,7 +147,7 @@ Repeat the command and change the name of filebeat to each of the other beats
 
 ### Remove / Uninstall
 
-If you mess up or you want to remove everything you can run removeBEATS-7.3.2 on arm and deb, or removeBEATS_mac for Mac OS X. 
+If you mess up or you want to remove everything you can run removeBEATS-7.3.2 on arm and deb, or removeBEATS_mac for Mac OS X.
 
 ## Additional Info
 

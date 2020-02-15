@@ -1,0 +1,16 @@
+[Unit]
+Description=Packetbeat analyzes network traffic and sends the data to Elasticsearch.
+Documentation=https://www.elastic.co/products/beats/packetbeat
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+
+Environment="BEAT_LOG_OPTS=-e"
+Environment="BEAT_CONFIG_OPTS=-c /etc/packetbeat/packetbeat.yml"
+Environment="BEAT_PATH_OPTS=-path.home /usr/share/packetbeat -path.config /etc/packetbeat -path.data /var/lib/packetbeat -path.logs /var/log/packetbeat"
+ExecStart=/usr/share/packetbeat/bin/packetbeat $BEAT_LOG_OPTS $BEAT_CONFIG_OPTS $BEAT_PATH_OPTS
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
