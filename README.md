@@ -12,7 +12,14 @@ The instructions are here so that you can compile Beats on your own, but I'm als
 
 ## How To Use
 
-### beats_arm
+### Download or Clone
+Either download the repo on your Pi using the download link from your Pi's browser or clone to your home directory.
+
+```
+cd ~
+git clone https://github.com/RaoulDuke-Esq/easyBEATS.git
+```
+
 
 Elastic.co has not released any of the Beats shippers for ARM architecture.  The beats_arm installer will download source code, compile an arm version, and prep the system for use.  The installer will prepare Filebeat, Packetbet, Metricbeat, and Auditbeat for use.  There are some TODO items as well as some quirks that I have noticed and not been able to solve yet. I have those TODO items and quirks noted below.  
 
