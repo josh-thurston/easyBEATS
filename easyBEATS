@@ -14,7 +14,7 @@ INSTALL_LOCAL=true #set to false if you only want to compile without installing
 CLEAN_UP=true #set to false if you want to keep the source files on your Pi
 
 function clean_up{
-  rm -rf $HOME/$WORKING_DIR
+  rm -rf $HOME/$WORKING_DIR;
   echo "Working directory deleted."
 }
 

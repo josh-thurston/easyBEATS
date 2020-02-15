@@ -13,6 +13,13 @@ The instructions are here so that you can compile Beats on your own.  If you wou
 ## How To Use
 
 ### Clone the repo
+
+Install git on your Pi so you can clone from this GitHub repo.
+
+```
+sudo apt-get install git -y
+```
+
 Clone the repo to your home directory.
 
 ```
@@ -21,7 +28,7 @@ git clone https://github.com/RaoulDuke-Esq/easyBEATS.git
 cd easyBEATS
 ```
 
-Now make the install script executable.
+Now make the install script executable so you can run it.
 
 ```
 sudo chmod 755 easyBEATS
