@@ -43,13 +43,13 @@ function configure_swap {
 }
 
 function checkout_version {
-  cd $HOME/WORKING_DIR/src/github.com/beats
+  cd $HOME/$WORKING_DIR/src/github.com/beats
   git fetch
   git checkout $BEAT_VERSION
 }
 
 function copy_source_code {
-  cd $HOME/WORKING_DIR/src/github.com/elastic
+  cd $HOME/$WORKING_DIR/src/github.com/elastic
   go get github.com/elastic/beats;
 }
 
@@ -90,14 +90,14 @@ function install_dependencies {
   sudo tar -C /usr/share -xzf go1.13.8.linux-armv6l.tar.gz;
   sudo chmod -R 775 /usr/share/go/;
   export PATH=$PATH:/usr/share/go/bin;
-  export GOPATH=$HOME/WORKING_DIR
+  export GOPATH=$HOME/$WORKING_DIR
   rm go1.13.8.linux-armv6l.tar.gz;
 
   echo "Dependency installation complete."
 }
 
 function create_working_directory {
-  mkdir -p $HOME/WORKING_DIR/src/github.com/elastic;
+  mkdir -p $HOME/$WORKING_DIR/src/github.com/elastic;
   echo "Working directory created"
 }
 
