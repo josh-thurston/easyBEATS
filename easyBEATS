@@ -180,6 +180,7 @@ then
   install_dependencies
 else
   export PATH=$PATH:/usr/share/go/bin;
+  export GOPATH=$HOME/${WORKING_DIR};
   echo "Skipping dependency installation"
 fi
 
