@@ -52,7 +52,7 @@ WORKING_DIR="beat-factory" #this directory will be created in /home/pi
 BEAT_VERSION_NUM="7.5.2" #the version number of the Beats release you want to use
 BEAT_VERSION="a9c1414" #the commit number of the Beats release you want to use
 #add as many beats as you want to BEAT_NAME separated by a space
-BEAT_NAME=( metricbeat filebeat ) #metricbeat filebeat packetbeat auditbeat journalbeat heartbeat
+BEAT_NAME=( metricbeat filebeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
 INSTALL_LOCAL=true #set to false if you only want to compile without installing
 CLEAN_UP=true #set to false if you want to keep the source files on your Pi
 ```
