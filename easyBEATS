@@ -13,12 +13,12 @@ BEAT_NAME=( metricbeat filebeat ) #metricbeat filebeat packetbeat auditbeat jour
 INSTALL_LOCAL=true #set to false if you only want to compile without installing
 CLEAN_UP=true #set to false if you want to keep the source files on your Pi
 
-function clean_up{
-  rm -rf $HOME/$WORKING_DIR;
+function clean_up {
+  sudo rm -rf $HOME/$WORKING_DIR
   echo "Working directory deleted."
 }
 
-function compile_beats{
+function compile_beats {
   for beat in "${BEAT_NAME[@]}";
   do
     echo "Compiling $beat"
@@ -27,7 +27,7 @@ function compile_beats{
     make;
     echo "$beat created"
   done
-  if [ $USE_SWAP ]:
+  if [ $USE_SWAP ];
   then
     sudo swapoff -v /swapfile
     sudo rm /swapfile
@@ -35,25 +35,25 @@ function compile_beats{
   fi
 }
 
-function configure_swap{
+function configure_swap {
   sudo fallocate -l 2G /swapfile
   sudo chmod 600 /swapfile
   sudo mkswap /swapfile
   sudo swapon /swapfile
 }
 
-function checkout_version{
+function checkout_version {
   cd $HOME/WORKING_DIR/src/github.com/beats
   git fetch
   git checkout $BEAT_VERSION
 }
 
-function copy_source_code{
+function copy_source_code {
   cd $HOME/WORKING_DIR/src/github.com/elastic
   go get github.com/elastic/beats;
 }
 
-function install_dependencies{
+function install_dependencies {
   if [ $(dpkg-query -W -f='${Status}' python-pip git 2>/dev/null | grep -c "ok installed") -eq 0 ];
   then
     echo "Installing python-pip git..."
@@ -96,18 +96,18 @@ function install_dependencies{
   echo "Dependency installation complete."
 }
 
-function create_working_directory{
+function create_working_directory {
   mkdir -p $HOME/WORKING_DIR/src/github.com/elastic;
   echo "Working directory created"
 }
 
-function update_system{
+function update_system {
   sudo DEBIAN_FRONTEND=noninteractive apt-get -yq update > /dev/null
   sudo DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade > /dev/null
   echo "System update complete"
 }
 
-function install_local{
+function install_local {
   for beat in "${BEAT_NAME[@]}";
   if [ ! -d /usr/share/$beat ];
   then
