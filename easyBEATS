@@ -179,6 +179,7 @@ then
   echo "Installing dependencies..."
   install_dependencies
 else
+  export PATH=$PATH:/usr/share/go/bin;
   echo "Skipping dependency installation"
 fi
 
