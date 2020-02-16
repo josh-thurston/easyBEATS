@@ -54,10 +54,16 @@ function copy_source_code {
 }
 
 function install_dependencies {
-  if [ $(dpkg-query -W -f='${Status}' python-pip git 2>/dev/null | grep -c "ok installed") -eq 0 ];
+  if [ $(dpkg-query -W -f='${Status}' python-pip 2>/dev/null | grep -c "ok installed") -eq 0 ];
   then
-    echo "Installing python-pip git..."
-    sudo apt-get install python-pip git -y;
+    echo "Installing python-pip..."
+    sudo apt-get install python-pip -y;
+  fi
+
+  if [ $(dpkg-query -W -f='${Status}' git 2>/dev/null | grep -c "ok installed") -eq 0 ];
+  then
+    echo "Installing git..."
+    sudo apt-get install git -y;
   fi
 
   if python -c 'import pkgutil; exit(pkgutil.find_loader("virtualenv"))';
