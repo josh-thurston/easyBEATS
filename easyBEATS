@@ -96,9 +96,9 @@ function install_dependencies {
   sudo tar -C /usr/share -xzf go1.13.8.linux-armv6l.tar.gz
   sudo chmod -R 775 /usr/share/go/
   sudo chmod -R 777 /usr/share/go/pkg/linux_arm/
-  export PATH=$PATH:/usr/share/go/bin
-  export GOPATH=$HOME/${WORKING_DIR}
-  rm go1.13.8.linux-armv6l.tar.gz
+  export PATH=$PATH:/usr/share/go/bin;
+  export GOPATH=$HOME/${WORKING_DIR};
+  rm go1.13.8.linux-armv6l.tar.gz;
 
   echo "Dependency installation complete."
 }
