@@ -86,12 +86,12 @@ function install_dependencies {
   fi
 
   echo "Installing go..."
-  wget https://dl.google.com/go/go1.13.8.linux-armv6l.tar.gz;
-  sudo tar -C /usr/share -xzf go1.13.8.linux-armv6l.tar.gz;
-  sudo chmod -R 775 /usr/share/go/;
-  export PATH=$PATH:/usr/share/go/bin;
-  export GOPATH=$HOME/$WORKING_DIR
-  rm go1.13.8.linux-armv6l.tar.gz;
+  wget https://dl.google.com/go/go1.13.8.linux-armv6l.tar.gz
+  sudo tar -C /usr/share -xzf go1.13.8.linux-armv6l.tar.gz
+  sudo chmod -R 775 /usr/share/go/
+  export PATH=$PATH:/usr/share/go/bin
+  export GOPATH=$HOME/${WORKING_DIR}
+  rm go1.13.8.linux-armv6l.tar.gz
 
   echo "Dependency installation complete."
 }
@@ -129,13 +129,13 @@ function install_local {
     fi
 
     echo "Installing $beat locally..."
-    sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat /usr/share/$beat/bin
-    sudo cp -R $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/module /usr/share/$beat
-    sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat.reference.yml /etc/$beat
-    sudo cp -R $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/modules.d/ /etc/$beat
-    sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat.yml /etc/$beat
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/$beat /usr/share/$beat/bin
+    sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/module /usr/share/$beat
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/$beat.reference.yml /etc/$beat
+    sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/modules.d/ /etc/$beat
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/$beat.yml /etc/$beat
 
-    wget -qO /lib/systemd/system/$beat.service https://raw.githubusercontent.com/RaoulDuke-Esq/easyBEATS/services/$beat.service
+    sudo cp $HOME/easyBEATS/services/${beat}.service /lib/systemd/system
 
     sudo chmod -R 755 /etc/$beat/;
     sudo chown -R root:root /etc/$beat;
@@ -146,7 +146,7 @@ function install_local {
 }
 
 echo "---------------------------------------------------------------"
-if [ $UPDATE_SYSTEM ];
+if [ $UPDATE_SYSTEM = true ];
 then
   echo "Performing system update..."
   update_system
@@ -165,7 +165,7 @@ fi
 
 echo "---------------------------------------------------------------"
 
-if [ $INSTALL_DEPS ];
+if [ $INSTALL_DEPS = true ];
 then
   echo "Installing dependencies..."
   install_dependencies
@@ -185,7 +185,7 @@ checkout_version
 
 echo "---------------------------------------------------------------"
 
-if [ $USE_SWAP ];
+if [ $USE_SWAP = true ];
 then
   echo "Configuring swap space..."
   configure_swap
@@ -200,13 +200,13 @@ compile_beats
 
 echo "---------------------------------------------------------------"
 
-if [ $INSTALL_LOCAL ];
+if [ $INSTALL_LOCAL = true ];
 then
   echo "Installing on your local system..."
   install_local
 fi
 
-if [ $CLEAN_UP ];
+if [ $CLEAN_UP = true ];
 then
   echo "Cleaning up working files..."
   clean_up
