@@ -156,7 +156,7 @@ fi
 
 echo "---------------------------------------------------------------"
 
-if [ ! -d $HOME/$WORKING_DIR ];
+if [ ! -d $HOME/${WORKING_DIR} ];
 then
   create_working_directory
 else
