@@ -43,7 +43,7 @@ function configure_swap {
 }
 
 function checkout_version {
-  cd $HOME/${WORKING_DIR}/src/github.com/beats
+  cd $HOME/${WORKING_DIR}/src/github.com/elastic/beats
   git fetch
   git checkout $BEAT_VERSION
 }
