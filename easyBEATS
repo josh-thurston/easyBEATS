@@ -109,38 +109,40 @@ function update_system {
 
 function install_local {
   for beat in "${BEAT_NAME[@]}";
-  if [ ! -d /usr/share/$beat ];
-  then
-    echo "Creating /usr/share/$beat directory..."
-    sudo mkdir -p /usr/share/$beat/bin;
-  fi
+  do
+    if [ ! -d /usr/share/$beat ];
+    then
+      echo "Creating /usr/share/$beat directory..."
+      sudo mkdir -p /usr/share/$beat/bin;
+    fi
 
-  if  [ ! -d /etc/$beat ];
-  then
-    echo "Creating /etc/$beat directory..."
-    sudo mkdir -p /etc/$beat;
-  fi
+    if  [ ! -d /etc/$beat ];
+    then
+      echo "Creating /etc/$beat directory..."
+      sudo mkdir -p /etc/$beat;
+    fi
 
-  if [ ! -d /var/lib/$beat ];
-  then
-    echo "Creating /var/lib/$beat directory..."
-    sudo mkdir -p /var/lib/$beat
-  fi
+    if [ ! -d /var/lib/$beat ];
+    then
+      echo "Creating /var/lib/$beat directory..."
+      sudo mkdir -p /var/lib/$beat
+    fi
 
-  echo "Installing $beat locally..."
-  sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat /usr/share/$beat/bin
-  sudo cp -R $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/module /usr/share/$beat
-  sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat.reference.yml /etc/$beat
-  sudo cp -R $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/modules.d/ /etc/$beat
-  sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat.yml /etc/$beat
+    echo "Installing $beat locally..."
+    sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat /usr/share/$beat/bin
+    sudo cp -R $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/module /usr/share/$beat
+    sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat.reference.yml /etc/$beat
+    sudo cp -R $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/modules.d/ /etc/$beat
+    sudo cp $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat/$beat.yml /etc/$beat
 
-  wget -qO /lib/systemd/system/$beat.service https://raw.githubusercontent.com/RaoulDuke-Esq/easyBEATS/services/$beat.service
+    wget -qO /lib/systemd/system/$beat.service https://raw.githubusercontent.com/RaoulDuke-Esq/easyBEATS/services/$beat.service
 
-  sudo chmod -R 755 /etc/$beat/;
-  sudo chown -R root:root /etc/$beat;
-  sudo chown -R root:root /usr/share/$beat/*;
-  sudo /bin/systemctl daemon-reload;
-  sudo systemctl enable $beat;
+    sudo chmod -R 755 /etc/$beat/;
+    sudo chown -R root:root /etc/$beat;
+    sudo chown -R root:root /usr/share/$beat/*;
+    sudo /bin/systemctl daemon-reload;
+    sudo systemctl enable $beat;
+  done
 }
 
 echo "---------------------------------------------------------------"
