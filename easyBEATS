@@ -14,7 +14,7 @@ INSTALL_LOCAL=true #set to false if you only want to compile without installing
 CLEAN_UP=true #set to false if you want to keep the source files on your Pi
 
 function clean_up {
-  sudo rm -rf $HOME/$WORKING_DIR
+  sudo rm -rf $HOME/${WORKING_DIR}
   echo "Working directory deleted."
 }
 
@@ -22,7 +22,7 @@ function compile_beats {
   for beat in "${BEAT_NAME[@]}";
   do
     echo "Compiling $beat"
-    cd $HOME/$WORKING_DIR/src/github.com/elastic/beats/$beat;
+    cd $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat;
     GOOS=linux GOARCH=arm go get;
     make;
     echo "$beat created"
@@ -43,13 +43,13 @@ function configure_swap {
 }
 
 function checkout_version {
-  cd $HOME/$WORKING_DIR/src/github.com/beats
+  cd $HOME/${WORKING_DIR}/src/github.com/beats
   git fetch
   git checkout $BEAT_VERSION
 }
 
 function copy_source_code {
-  cd $HOME/$WORKING_DIR/src/github.com/elastic
+  cd $HOME/${WORKING_DIR}/src/github.com/elastic
   go get github.com/elastic/beats;
 }
 
@@ -97,7 +97,7 @@ function install_dependencies {
 }
 
 function create_working_directory {
-  mkdir -p $HOME/$WORKING_DIR/src/github.com/elastic;
+  mkdir -p $HOME/${WORKING_DIR}/src/github.com/elastic;
   echo "Working directory created"
 }
 
