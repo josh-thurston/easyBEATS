@@ -95,6 +95,7 @@ function install_dependencies {
   wget https://dl.google.com/go/go1.13.8.linux-armv6l.tar.gz
   sudo tar -C /usr/share -xzf go1.13.8.linux-armv6l.tar.gz
   sudo chmod -R 775 /usr/share/go/
+  sudo chmod -R 777 /usr/share/go/pkg/linux_arm/
   export PATH=$PATH:/usr/share/go/bin
   export GOPATH=$HOME/${WORKING_DIR}
   rm go1.13.8.linux-armv6l.tar.gz
@@ -135,19 +136,19 @@ function install_local {
     fi
 
     echo "Installing $beat locally..."
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/$beat /usr/share/$beat/bin
-    sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/module /usr/share/$beat
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/$beat.reference.yml /etc/$beat
-    sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/modules.d/ /etc/$beat
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat/$beat.yml /etc/$beat
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat} /usr/share/${beat}/bin
+    sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/module /usr/share/${beat}
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.reference.yml /etc/${beat}
+    sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/modules.d/ /etc/${beat}
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.yml /etc/${beat}
 
     sudo cp $HOME/easyBEATS/services/${beat}.service /lib/systemd/system
 
-    sudo chmod -R 755 /etc/$beat/;
-    sudo chown -R root:root /etc/$beat;
-    sudo chown -R root:root /usr/share/$beat/*;
+    sudo chmod -R 755 /etc/${beat}/;
+    sudo chown -R root:root /etc/${beat};
+    sudo chown -R root:root /usr/share/${beat}/*;
     sudo /bin/systemctl daemon-reload;
-    sudo systemctl enable $beat;
+    sudo systemctl enable ${beat};
   done
 }
 
