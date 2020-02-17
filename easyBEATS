@@ -27,7 +27,7 @@ function compile_beats {
     make;
     echo "$beat created"
   done
-  if [ $USE_SWAP ];
+  if [ $USE_SWAP = true ];
   then
     sudo swapoff -v /swapfile
     sudo rm /swapfile
