@@ -229,4 +229,4 @@ then
   clean_up
 fi
 
-echo "Done, son!"
+echo "Complete"
