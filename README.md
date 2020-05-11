@@ -2,11 +2,11 @@
 
 ### Credit where credit is due
 
-easyBEATS is a project started by josh-thurston to make the installation of Beats packages faster and easier for Ubuntu, Mac, and even Raspberry Pi (ARM architecture).
+easyBEATS is a project started to make the installation of Beats packages faster and easier for Ubuntu, Mac, and even Raspberry Pi (ARM architecture).
 
 ### About this fork
 
-My fork is focused entirely on Raspberry Pi.  It resolves issues related to the outdated golang-go package in the RPi apt repo which prevents the successful installation of Beats newer than v7.3.2.  I've refactored the script such that you can install one or multiple Beats at any version.
+This version is focused on Raspberry Pi.  It resolves issues related to the outdated golang-go package in the RPi apt repo which prevents the successful installation of Beats newer than v7.3.2.  The current version of the script will let you install one or multiple Beats at any version.
 
 The instructions are here so that you can compile Beats on your own.  If you would prefer something a bit easier that doesn't require compiling source code, visit my [Beats-Pi repo](https://github.com/RaoulDuke-Esq/Beats-Pi) for some pre-baked Beats that you can install via apt.
 
@@ -22,11 +22,6 @@ sudo apt-get install git -y
 
 Clone the repo to your home directory.
 
-```
-cd ~
-git clone https://github.com/RaoulDuke-Esq/easyBEATS.git
-cd easyBEATS
-```
 
 Now make the install script executable so you can run it.
 
@@ -96,9 +91,9 @@ If you mess up or you want to remove everything you can run removeBEATS.
 
 
 ## Notes
-I have only tested metricbeat, packetbeat, and filebeat.  Your mileage may vary on the others.  
+Tested with metricbeat, packetbeat, and filebeat.  Others may work but have not been tested.  
 
-File an issue if you run into a problem or have a question.  I'm happy to help!
+File an issue if you run into a problem or have a question.
 
 
 
