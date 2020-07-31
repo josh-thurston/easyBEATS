@@ -6,8 +6,7 @@ INSTALL_DEPS=true #change to false if you have already run this script successfu
 USE_SWAP=true #change to fales if you're using a Pi4 with 2GB of RAM or more
 WORKING_DIR="beat-factory" #this directory will be created in /home/pi
 #visit https://github.com/elastic/beats/releases to find other version numbers and commit numbers
-BEAT_VERSION_NUM="7.5.2" #the version number of the Beats release you want to use
-BEAT_VERSION="a9c1414" #the commit number of the Beats release you want to use
+BEAT_VERSION="v7.5.2" #the version tag name or commit id of the Beats release you want to use
 #add as many beats as you want to BEAT_NAME separated by a space
 BEAT_NAME=( metricbeat filebeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
 INSTALL_LOCAL=true #set to false if you only want to compile without installing
@@ -197,7 +196,7 @@ copy_source_code
 
 echo "---------------------------------------------------------------"
 
-echo "Checking out Beats version $BEAT_VERSION_NUM"
+echo "Checking out Beats version $BEAT_VERSION"
 checkout_version
 
 echo "---------------------------------------------------------------"
