@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Script variables
-UPDATE_SYSTEM=false #change to false if you don't want to upgrade your whole system
-INSTALL_DEPS=false #change to false if you have already run this script successfully before
+UPDATE_SYSTEM=true #change to false if you don't want to upgrade your whole system
+INSTALL_DEPS=true #change to false if you have already run this script successfully before
 USE_SWAP=false #change to fales if you're using a Pi4 with 2GB of RAM or more
 WORKING_DIR="beat-factory" #this directory will be created in /home/pi
 #visit https://github.com/elastic/beats/releases to find other version numbers and commit numbers
@@ -10,7 +10,7 @@ BEAT_VERSION="v7.11.0" #the version tag name or commit id of the Beats release y
 #add as many beats as you want to BEAT_NAME separated by a space
 BEAT_NAME=( metricbeat filebeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
 INSTALL_LOCAL=true #set to false if you only want to compile without installing
-CLEAN_UP=false #set to false if you want to keep the source files on your Pi
+CLEAN_UP=true #set to false if you want to keep the source files on your Pi
 
 function clean_up {
   sudo rm -rf $HOME/${WORKING_DIR}
@@ -23,12 +23,6 @@ function compile_beats {
     echo "Compiling $beat"
     cd $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat;
     GOOS=linux GOARCH=arm go get;
-    #if [ $beat = "metricbeat" ];
-    #then
-    #  mage build;
-    #else
-    #  make;
-    #fi
     mage build;
     echo "$beat created"
   done
