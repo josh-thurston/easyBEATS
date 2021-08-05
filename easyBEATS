@@ -3,10 +3,10 @@
 # Script variables
 UPDATE_SYSTEM=true #change to false if you don't want to upgrade your whole system
 INSTALL_DEPS=true #change to false if you have already run this script successfully before
-USE_SWAP=true #change to fales if you're using a Pi4 with 2GB of RAM or more
+USE_SWAP=false #change to fales if you're using a Pi4 with 2GB of RAM or more
 WORKING_DIR="beat-factory" #this directory will be created in /home/pi
 #visit https://github.com/elastic/beats/releases to find other version numbers and commit numbers
-BEAT_VERSION="v7.5.2" #the version tag name or commit id of the Beats release you want to use
+BEAT_VERSION="v7.11.0" #the version tag name or commit id of the Beats release you want to use
 #add as many beats as you want to BEAT_NAME separated by a space
 BEAT_NAME=( metricbeat filebeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
 INSTALL_LOCAL=true #set to false if you only want to compile without installing
@@ -23,7 +23,7 @@ function compile_beats {
     echo "Compiling $beat"
     cd $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat;
     GOOS=linux GOARCH=arm go get;
-    make;
+    mage build;
     echo "$beat created"
   done
   if [ $USE_SWAP = true ];
@@ -100,6 +100,11 @@ function install_dependencies {
   rm go1.13.8.linux-armv6l.tar.gz;
 
   sudo apt-get install libpcap-dev -y
+
+  go get -u -d github.com/magefile/mage
+  cd $GOPATH/src/github.com/magefile/mage
+  go run bootstrap.go
+  export PATH=$(go env GOPATH)/bin:$PATH
 
   echo "Dependency installation complete."
 }
@@ -186,6 +191,7 @@ then
 else
   export PATH=$PATH:/usr/share/go/bin;
   export GOPATH=$HOME/${WORKING_DIR};
+  export PATH=$(go env GOPATH)/bin:$PATH;
   echo "Skipping dependency installation"
 fi
 
