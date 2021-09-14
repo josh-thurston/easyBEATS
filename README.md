@@ -7,6 +7,30 @@ easyBEATS is a project started to make the installation of Beats packages faster
 
 The instructions are here so that you can compile Beats on your own.  If you would prefer something a bit easier that doesn't require compiling source code, visit the repo from a contributyor RaoulDuke [Beats-Pi repo](https://github.com/RaoulDuke-Esq/Beats-Pi) for some pre-baked Beats that you can install via apt.
 
+## Export
+
+The **export branch** changes the default behaviour to export beat installation files. There are a couple parameters added:
+
+```
+EXPORT_DIR="beat-export" #this directory will be created in /home/pi
+EXPORT_INSTALL=true #set to false if you do not want to export
+```
+
+### Default
+
+The default values are set according CI purposes.
+
+UPDATE_SYSTEM=true
+INSTALL_DEPS=true
+USE_SWAP=false
+WORKING_DIR="beat-factory"
+BEAT_VERSION="v7.11.0"
+BEAT_NAME=( metricbeat )
+INSTALL_LOCAL=true
+CLEAN_UP=true
+EXPORT_DIR="beat-export"
+EXPORT_INSTALL=true
+
 ## How To Use
 
 ### Clone the repo
