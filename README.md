@@ -20,6 +20,7 @@ EXPORT_INSTALL=true #set to false if you do not want to export
 
 The default values are set according CI purposes.
 
+```
 UPDATE_SYSTEM=true
 INSTALL_DEPS=true
 USE_SWAP=false
@@ -30,6 +31,7 @@ INSTALL_LOCAL=true
 CLEAN_UP=true
 EXPORT_DIR="beat-export"
 EXPORT_INSTALL=true
+```
 
 ## How To Use
 
