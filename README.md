@@ -31,6 +31,17 @@ EXPORT_DIR="beat-export"
 EXPORT_INSTALL=true
 ```
 
+### Installing from export
+
+The installation script comes together with the exported files. Copy the $EXPORT_DIR to the proper $HOME, and run the install script after making it executable:
+
+```
+cd $HOME/${EXPORT_DIR}
+sudo chmod 755 installBEATS
+./installBEATS
+
+```
+
 ## How To Use
 
 ### Clone the repo

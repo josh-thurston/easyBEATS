@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Script variables
+UPDATE_SYSTEM=true #change to false if you don't want to upgrade your whole system
+#add as many beats as you want to BEAT_NAME separated by a space
+BEAT_NAME=( metricbeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
+EXPORT_DIR="beat-export" #this directory will be used from /home/pi
+
+function update_system {
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -yq update > /dev/null
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade > /dev/null
+  echo "System update complete"
+}
+
+function install_local {
+  sudo cp -pR $HOME/${EXPORT_DIR}/* /
+  for beat in "${BEAT_NAME[@]}";
+  do
+    echo "Installing $beat locally..."    
+
+    #sudo cp -f $HOME/${EXPORT_DIR}/lib/systemd/system/${beat}.service /lib/systemd/system
+
+    sudo chmod -R 755 /etc/${beat}/;
+    sudo chown -R root:root /etc/${beat};
+    sudo chown -R root:root /usr/share/${beat}/*;
+    sudo /bin/systemctl daemon-reload;
+    sudo systemctl enable ${beat};
+  done
+}
+
+echo "---------------------------------------------------------------"
+if [ $UPDATE_SYSTEM = true ];
+then
+  echo "Performing system update..."
+  update_system
+else
+  echo "Skipping system update"
+fi
+
+echo "---------------------------------------------------------------"
+
+
+echo "Installing on your local system..."
+install_local
+
+echo "---------------------------------------------------------------"
+
+echo "Complete"

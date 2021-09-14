@@ -119,6 +119,8 @@ function create_working_directory {
 function create_export_directory {
   mkdir -p $HOME/${EXPORT_DIR};
   echo "Export directory created"
+  sudo cp $HOME/easyBEATS/installBEATS $HOME/${EXPORT_DIR};
+  sudo chmod 755 $HOME/${EXPORT_DIR}/installBEATS
 }
 
 function update_system {
