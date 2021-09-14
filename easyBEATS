@@ -118,7 +118,6 @@ function create_working_directory {
 
 function create_export_directory {
   mkdir -p $HOME/${EXPORT_DIR};
-  mkdir -p $HOME/${EXPORT_DIR}/lib/systemd/system;
   echo "Export directory created"
 }
 
@@ -193,6 +192,12 @@ function export_install {
       sudo mkdir -p $HOME/${EXPORT_DIR}/var/lib/$beat
     fi
 
+    if [ ! -d $HOME/${EXPORT_DIR}/lib/systemd/system ];
+    then
+      echo "Exporting lib/systemd/system directory..."
+      sudo mkdir -p $HOME/${EXPORT_DIR}/lib/systemd/system
+    fi
+
     echo "Installing $beat locally..."
     sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat} $HOME/${EXPORT_DIR}/usr/share/${beat}/bin
     sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.reference.yml $HOME/${EXPORT_DIR}/etc/${beat}
@@ -205,8 +210,6 @@ function export_install {
     fi
 
     sudo cp $HOME/easyBEATS/services/${beat}.service $HOME/${EXPORT_DIR}/lib/systemd/system
-
-
 
     sudo chmod -R 755 $HOME/${EXPORT_DIR}/etc/${beat}/;
     sudo chown -R root:root $HOME/${EXPORT_DIR}/etc/${beat};
@@ -290,7 +293,7 @@ then
   else
     echo "Export directory already exists"
   fi
-  echo "Exporting to your local system..."
+  echo "Exporting to local system..."
   export_install
 fi
 
