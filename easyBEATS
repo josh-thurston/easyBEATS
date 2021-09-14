@@ -194,7 +194,7 @@ function export_install {
 
     if [ ! -d $HOME/${EXPORT_DIR}/lib/systemd/system ];
     then
-      echo "Exporting lib/systemd/system directory..."
+      echo "Exporting /lib/systemd/system directory..."
       sudo mkdir -p $HOME/${EXPORT_DIR}/lib/systemd/system
     fi
 
