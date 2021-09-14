@@ -18,7 +18,7 @@ function install_local {
   do
     echo "Installing $beat locally..."    
 
-    #sudo cp -f $HOME/${EXPORT_DIR}/lib/systemd/system/${beat}.service /lib/systemd/system
+    #sudo cp -f $HOME/${EXPORT_DIR}/usr/lib/systemd/system/${beat}.service /usr/lib/systemd/system
 
     sudo chmod -R 755 /etc/${beat}/;
     sudo chown -R root:root /etc/${beat};

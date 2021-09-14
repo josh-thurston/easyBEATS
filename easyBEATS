@@ -197,7 +197,7 @@ function export_install {
     if [ ! -d $HOME/${EXPORT_DIR}/lib/systemd/system ];
     then
       echo "Exporting /lib/systemd/system directory..."
-      sudo mkdir -p $HOME/${EXPORT_DIR}/lib/systemd/system
+      sudo mkdir -p $HOME/${EXPORT_DIR}/usr/lib/systemd/system
     fi
 
     echo "Installing $beat locally..."
@@ -211,7 +211,7 @@ function export_install {
       sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/modules.d/ $HOME/${EXPORT_DIR}/etc/${beat}
     fi
 
-    sudo cp $HOME/easyBEATS/services/${beat}.service $HOME/${EXPORT_DIR}/lib/systemd/system
+    sudo cp $HOME/easyBEATS/services/${beat}.service $HOME/${EXPORT_DIR}/usr/lib/systemd/system
 
     sudo chmod -R 755 $HOME/${EXPORT_DIR}/etc/${beat}/;
     sudo chown -R root:root $HOME/${EXPORT_DIR}/etc/${beat};
