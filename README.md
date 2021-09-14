@@ -5,8 +5,6 @@
 
 easyBEATS is a project started to make the installation of Beats packages faster and easier for Ubuntu, Mac, and even Raspberry Pi (ARM architecture). The focus was for Rasperry Pi since Elastic does not have a supported release on ARM architecture.  easyBEATS also resolves issues related to the outdated golang-go package in the RPi apt repo which prevents the successful installation of Beats newer than v7.3.2.  The current version of the script will let you install one or multiple Beats at any version.
 
-The instructions are here so that you can compile Beats on your own.  If you would prefer something a bit easier that doesn't require compiling source code, visit the repo from a contributyor RaoulDuke [Beats-Pi repo](https://github.com/RaoulDuke-Esq/Beats-Pi) for some pre-baked Beats that you can install via apt.
-
 ## Export
 
 The **export branch** changes the default behaviour to export beat installation files. There are a couple parameters added:
