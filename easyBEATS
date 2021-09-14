@@ -6,13 +6,13 @@ INSTALL_DEPS=true #change to false if you have already run this script successfu
 USE_SWAP=false #change to fales if you're using a Pi4 with 2GB of RAM or more
 WORKING_DIR="beat-factory" #this directory will be created in /home/pi
 #visit https://github.com/elastic/beats/releases to find other version numbers and commit numbers
-BEAT_VERSION="v7.14.1" #the version tag name or commit id of the Beats release you want to use
+BEAT_VERSION="v7.11.0" #the version tag name or commit id of the Beats release you want to use
 #add as many beats as you want to BEAT_NAME separated by a space
 BEAT_NAME=( metricbeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
 INSTALL_LOCAL=true #set to false if you only want to compile without installing
-CLEAN_UP=false #set to false if you want to keep the source files on your Pi
+CLEAN_UP=true #set to false if you want to keep the source files on your Pi
 EXPORT_DIR="beat-export" #this directory will be created in /home/pi
-EXPORT_INSTALL=true #set to false if you only want to compile without exporting
+EXPORT_INSTALL=true #set to false if you do not want to export
 
 function clean_up {
   sudo rm -rf $HOME/${WORKING_DIR}
@@ -118,6 +118,7 @@ function create_working_directory {
 
 function create_export_directory {
   mkdir -p $HOME/${EXPORT_DIR};
+  mkdir -p $HOME/${EXPORT_DIR}/lib/systemd/system;
   echo "Export directory created"
 }
 
@@ -149,7 +150,7 @@ function install_local {
     fi
 
     echo "Installing $beat locally..."
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat} /usr/share/${beat}/bin
+    sudo cp -f $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat} /usr/share/${beat}/bin
     sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.reference.yml /etc/${beat}
     sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.yml /etc/${beat}
 
