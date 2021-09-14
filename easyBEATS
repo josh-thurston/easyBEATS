@@ -6,11 +6,13 @@ INSTALL_DEPS=true #change to false if you have already run this script successfu
 USE_SWAP=false #change to fales if you're using a Pi4 with 2GB of RAM or more
 WORKING_DIR="beat-factory" #this directory will be created in /home/pi
 #visit https://github.com/elastic/beats/releases to find other version numbers and commit numbers
-BEAT_VERSION="v7.11.0" #the version tag name or commit id of the Beats release you want to use
+BEAT_VERSION="v7.14.1" #the version tag name or commit id of the Beats release you want to use
 #add as many beats as you want to BEAT_NAME separated by a space
-BEAT_NAME=( metricbeat filebeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
+BEAT_NAME=( metricbeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
 INSTALL_LOCAL=true #set to false if you only want to compile without installing
-CLEAN_UP=true #set to false if you want to keep the source files on your Pi
+CLEAN_UP=false #set to false if you want to keep the source files on your Pi
+EXPORT_DIR="beat-export" #this directory will be created in /home/pi
+EXPORT_INSTALL=true #set to false if you only want to compile without exporting
 
 function clean_up {
   sudo rm -rf $HOME/${WORKING_DIR}
@@ -114,6 +116,11 @@ function create_working_directory {
   echo "Working directory created"
 }
 
+function create_export_directory {
+  mkdir -p $HOME/${EXPORT_DIR};
+  echo "Export directory created"
+}
+
 function update_system {
   sudo DEBIAN_FRONTEND=noninteractive apt-get -yq update > /dev/null
   sudo DEBIAN_FRONTEND=noninteractive apt-get -yq upgrade > /dev/null
@@ -161,6 +168,50 @@ function install_local {
     sudo chown -R root:root /usr/share/${beat}/*;
     sudo /bin/systemctl daemon-reload;
     sudo systemctl enable ${beat};
+  done
+}
+
+function export_install {
+  for beat in "${BEAT_NAME[@]}";
+  do
+    if [ ! -d $HOME/${EXPORT_DIR}/usr/share/$beat ];
+    then
+      echo "Exporting /usr/share/$beat directory..."
+      sudo mkdir -p $HOME/${EXPORT_DIR}/usr/share/$beat/bin;
+    fi
+
+    if  [ ! -d $HOME/${EXPORT_DIR}/etc/$beat ];
+    then
+      echo "Exporting /etc/$beat directory..."
+      sudo mkdir -p $HOME/${EXPORT_DIR}/etc/$beat;
+    fi
+
+    if [ ! -d $HOME/${EXPORT_DIR}/var/lib/$beat ];
+    then
+      echo "Exporting /var/lib/$beat directory..."
+      sudo mkdir -p $HOME/${EXPORT_DIR}/var/lib/$beat
+    fi
+
+    echo "Installing $beat locally..."
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat} $HOME/${EXPORT_DIR}/usr/share/${beat}/bin
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.reference.yml $HOME/${EXPORT_DIR}/etc/${beat}
+    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.yml $HOME/${EXPORT_DIR}/etc/${beat}
+
+    if [ $beat = "filebeat" ] || [ $beat = "metricbeat" ];
+    then
+      sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/module $HOME/${EXPORT_DIR}/usr/share/${beat}
+      sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/modules.d/ $HOME/${EXPORT_DIR}/etc/${beat}
+    fi
+
+    sudo cp $HOME/easyBEATS/services/${beat}.service $HOME/${EXPORT_DIR}/lib/systemd/system
+
+
+
+    sudo chmod -R 755 $HOME/${EXPORT_DIR}/etc/${beat}/;
+    sudo chown -R root:root $HOME/${EXPORT_DIR}/etc/${beat};
+    sudo chown -R root:root $HOME/${EXPORT_DIR}/usr/share/${beat}/*;
+    #sudo /bin/systemctl daemon-reload;
+    #sudo systemctl enable ${beat};
   done
 }
 
@@ -227,6 +278,22 @@ then
   echo "Installing on your local system..."
   install_local
 fi
+
+echo "---------------------------------------------------------------"
+
+if [ $EXPORT_INSTALL = true ];
+then
+  if [ ! -d $HOME/${EXPORT_DIR} ];
+  then
+    create_export_directory
+  else
+    echo "Export directory already exists"
+  fi
+  echo "Exporting to your local system..."
+  export_install
+fi
+
+echo "---------------------------------------------------------------"
 
 if [ $CLEAN_UP = true ];
 then
