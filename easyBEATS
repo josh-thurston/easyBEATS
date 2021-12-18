@@ -145,14 +145,14 @@ function install_local {
     fi
 
     echo "Installing $beat locally..."
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat} /usr/share/${beat}/bin
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.reference.yml /etc/${beat}
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.yml /etc/${beat}
+    sudo cp /tmp/beats/${beat}/${beat} /usr/share/${beat}/bin
+    sudo cp /tmp/beats/${beat}/${beat}.reference.yml /etc/${beat}
+    sudo cp /tmp/beats/${beat}/${beat}.yml /etc/${beat}
 
     if [ $beat = "filebeat" ] || [ $beat = "metricbeat" ];
     then
-      sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/module /usr/share/${beat}
-      sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/modules.d/ /etc/${beat}
+      sudo cp -R /tmp/beats/${beat}/module /usr/share/${beat}
+      sudo cp -R /tmp/beats/${beat}/modules.d/ /etc/${beat}
     fi
 
     sudo cp $HOME/easyBEATS/services/${beat}.service /lib/systemd/system
