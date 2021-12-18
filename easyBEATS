@@ -51,7 +51,7 @@ function checkout_version {
 
 function copy_source_code {
   cd /tmp
-  git clone --depth 1 https://github.com/elastic/beats.git
+  git clone https://github.com/elastic/beats.git
 }
 
 function install_dependencies {
