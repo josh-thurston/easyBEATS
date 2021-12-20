@@ -3,17 +3,18 @@
 # Script variables
 UPDATE_SYSTEM=true #change to false if you don't want to upgrade your whole system
 INSTALL_DEPS=true #change to false if you have already run this script successfully before
-USE_SWAP=false #change to fales if you're using a Pi4 with 2GB of RAM or more
+USE_SWAP=false #change to false if you're using a Pi4 with 2GB of RAM or more
 WORKING_DIR="beat-factory" #this directory will be created in /home/pi
 #visit https://github.com/elastic/beats/releases to find other version numbers and commit numbers
-BEAT_VERSION="v7.11.0" #the version tag name or commit id of the Beats release you want to use
+BEAT_VERSION="v7.16.1" #the version tag name or commit id of the Beats release you want to use
 #add as many beats as you want to BEAT_NAME separated by a space
+GO_VERSION="1.17.5" # Find versions here: https://go.dev/dl/
 BEAT_NAME=( metricbeat filebeat ) #metricbeat filebeat packetbeat auditbeat heartbeat
 INSTALL_LOCAL=true #set to false if you only want to compile without installing
 CLEAN_UP=true #set to false if you want to keep the source files on your Pi
 
 function clean_up {
-  sudo rm -rf $HOME/${WORKING_DIR}
+  sudo rm -rf $HOME/${WORKING_DIR} /tmp/beats /tmp/mage
   echo "Working directory deleted."
 }
 
@@ -21,8 +22,9 @@ function compile_beats {
   for beat in "${BEAT_NAME[@]}";
   do
     echo "Compiling $beat"
-    cd $HOME/${WORKING_DIR}/src/github.com/elastic/beats/$beat;
-    GOOS=linux GOARCH=arm go get;
+    cd /tmp/beats
+    go mod download
+    cd /tmp/beats/$beat
     mage build;
     echo "$beat created"
   done
@@ -42,14 +44,14 @@ function configure_swap {
 }
 
 function checkout_version {
-  cd $HOME/${WORKING_DIR}/src/github.com/elastic/beats
+  cd /tmp/beats
   git fetch
   git checkout $BEAT_VERSION
 }
 
 function copy_source_code {
-  cd $HOME/${WORKING_DIR}/src/github.com/elastic
-  go get github.com/elastic/beats;
+  cd /tmp
+  git clone https://github.com/elastic/beats.git
 }
 
 function install_dependencies {
@@ -91,18 +93,19 @@ function install_dependencies {
   fi
 
   echo "Installing go..."
-  wget https://dl.google.com/go/go1.13.8.linux-armv6l.tar.gz
-  sudo tar -C /usr/share -xzf go1.13.8.linux-armv6l.tar.gz
+  wget https://dl.google.com/go/go${GO_VERSION}.linux-armv6l.tar.gz
+  sudo tar -C /usr/share -xzf go${GO_VERSION}.linux-armv6l.tar.gz
   sudo chmod -R 775 /usr/share/go/
   sudo chmod -R 777 /usr/share/go/pkg/linux_arm/
   export PATH=$PATH:/usr/share/go/bin;
   export GOPATH=$HOME/${WORKING_DIR};
-  rm go1.13.8.linux-armv6l.tar.gz;
+  rm go${GO_VERSION}.linux-armv6l.tar.gz;
 
   sudo apt-get install libpcap-dev -y
 
-  go get -u -d github.com/magefile/mage
-  cd $GOPATH/src/github.com/magefile/mage
+  cd /tmp
+  git clone https://github.com/magefile/mage
+  cd mage
   go run bootstrap.go
   export PATH=$(go env GOPATH)/bin:$PATH
 
@@ -142,14 +145,14 @@ function install_local {
     fi
 
     echo "Installing $beat locally..."
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat} /usr/share/${beat}/bin
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.reference.yml /etc/${beat}
-    sudo cp $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/${beat}.yml /etc/${beat}
+    sudo cp /tmp/beats/${beat}/${beat} /usr/share/${beat}/bin
+    sudo cp /tmp/beats/${beat}/${beat}.reference.yml /etc/${beat}
+    sudo cp /tmp/beats/${beat}/${beat}.yml /etc/${beat}
 
     if [ $beat = "filebeat" ] || [ $beat = "metricbeat" ];
     then
-      sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/module /usr/share/${beat}
-      sudo cp -R $HOME/${WORKING_DIR}/src/github.com/elastic/beats/${beat}/modules.d/ /etc/${beat}
+      sudo cp -R /tmp/beats/${beat}/module /usr/share/${beat}
+      sudo cp -R /tmp/beats/${beat}/modules.d/ /etc/${beat}
     fi
 
     sudo cp $HOME/easyBEATS/services/${beat}.service /lib/systemd/system
